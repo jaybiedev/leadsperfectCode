@@ -1,0 +1,45 @@
+
+#pos-app .navbar.navbar-default {
+    background-color:inherit;
+    border:none;
+}
+
+/** default to nav to burger **/
+/*
+#pos-app #navbar.navbar-collapse {
+    display:none !important;
+}
+#pos-app .navbar-toggle {
+    display: block;
+}
+*/
+#items-table {
+    overflow-y:scroll;
+    float:left;
+    width:100%;
+    font-size:1.25em;
+}
+#items-summary {
+    position: fixed;
+    bottom: 25px;
+    width: 100%;
+}
+
+#items-summary .sub {
+    height: 150px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+#status-bar.footer {
+    height: 20px;
+    padding: 3px 5px;
+    background-color: #444;
+    color: #aaa;
+    margin-top:5px;
+    font-size: 11px;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
+

@@ -1,0 +1,121 @@
+--
+-- PostgreSQL database dump
+--
+
+SET client_encoding = 'SQL_ASCII';
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: bankcard_transaction; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE bankcard_transaction (
+    bankcard_transaction_id bigserial NOT NULL,
+    bankcard_id bigint,
+    date date,
+    amount numeric,
+    status character(1),
+    charge numeric,
+    paid numeric,
+    enable boolean DEFAULT true NOT NULL,
+    admin_id integer,
+    audit text,
+    trace character varying(20),
+    reference character varying(10)
+);
+
+
+ALTER TABLE public.bankcard_transaction OWNER TO postgres;
+
+--
+-- Name: bankcard_transaction_bankcard_transaction_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('bankcard_transaction', 'bankcard_transaction_id'), 1, false);
+
+
+--
+-- Name: bankcard_transaction_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY bankcard_transaction
+    ADD CONSTRAINT bankcard_transaction_pkey PRIMARY KEY (bankcard_transaction_id);
+
+
+
+CREATE TABLE bankcard (
+    bankcard_id bigserial NOT NULL,
+    bankcard character varying,
+    bankcard_type_id integer,
+    name character varying,
+    address character varying,
+    telno character varying,
+    status character(1) DEFAULT 'A'::bpchar,
+    enable boolean DEFAULT true
+);
+
+
+ALTER TABLE public.bankcard OWNER TO postgres;
+
+--
+-- Name: bankcard_bankcard_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('bankcard', 'bankcard_id'), 8, true);
+
+
+--
+-- Data for Name: bankcard; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+ALTER TABLE ONLY bankcard
+    ADD CONSTRAINT bankcard_pkey PRIMARY KEY (bankcard_id);
+
+
+CREATE TABLE bankcard_type (
+    bankcard_type_id bigserial NOT NULL,
+    bankcard_type character varying,
+    enable boolean DEFAULT true,
+    percent_bankcharge numeric(8,2)
+);
+
+
+ALTER TABLE public.bankcard_type OWNER TO postgres;
+
+--
+-- Name: bankcard_type_bankcard_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval(pg_catalog.pg_get_serial_sequence('bankcard_type', 'bankcard_type_id'), 4, true);
+
+
+--
+-- Data for Name: bankcard_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO bankcard_type VALUES (1, 'VISA', NULL, NULL);
+INSERT INTO bankcard_type VALUES (4, 'HSBC', true, NULL);
+INSERT INTO bankcard_type VALUES (3, 'MASTERCARD', true, NULL);
+INSERT INTO bankcard_type VALUES (2, 'DINERS', true, NULL);
+
+
+--
+-- Name: bankcard_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY bankcard_type
+    ADD CONSTRAINT bankcard_type_pkey PRIMARY KEY (bankcard_type_id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+

@@ -1,0 +1,49 @@
+<?
+	if (!session_is_registered('SYSCONF'))
+	{
+		session_register('SYSCONF');
+		$SYSCONF = null;
+		$SYSCONF = array();
+	}
+
+	$qr = @pg_exec("select * from sysconfig") or die ("No System Configuration for this branch database...");
+	while ($r = @pg_fetch_object($qr))
+	{
+		$SYSCONF[$r->sysconfig]=$r->value;
+	}
+	
+	if ($SYSCONF['DB'] == '')
+	{
+		$SYSCONF['DB'] = $SYSCONF['DBNAME'];
+	}
+	
+   $Q = "select * from branch where local='t'";
+   $QR = @pg_query($Q) or die (pg_errormessage());
+   $R = @pg_fetch_object($QR);
+
+   if ($R)
+    {
+           $SYSCONF['BRANCH'] = $R->branch;
+           $SYSCONF['BRANCH_ID'] = $R->branch_id;
+           $SYSCONF['BRANCH_CODE'] = $R->branch_code;
+    }
+	
+
+	if ($ADMIN['branch_id'] > '0')
+	{
+		$q = "select * from branch where branch_id = '".$ADMIN['branch_id']."'";
+		$qr = @pg_query($q);
+		$r = @pg_fetch_object($qr);
+		$SYSCONF['printer_type'] = $r->printer_type;
+		$SYSCONF['BUSINESS_NAME'] .= '-'.$r->branch;
+		$SYSCONF['BUSINESS_ADDR'] = $r->branch_address;
+      $SYSCONF['BRANCH_CODE'] = $r->branch_code;
+      $SYSCONF['BRANCH'] = $r->branch;
+      $SYSCONF['BRANCH_ID'] = $r->branch_id;
+      
+      if ($SYSCONF['printer_type'] == '')
+      {
+      	$SYSCONF['printer_type'] = 'UDP DRAFT';
+      }
+	}
+?>

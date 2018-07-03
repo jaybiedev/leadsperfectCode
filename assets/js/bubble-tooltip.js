@@ -1,0 +1,1 @@
+../../application/controllers/jgm/legacy/lending/js/bubble-tooltip.js

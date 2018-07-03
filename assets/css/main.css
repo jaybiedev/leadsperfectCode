@@ -1,0 +1,124 @@
+body {
+    font-family: Lato-Regular,Verdana,sans-serif,Arial;
+    padding-top: 3px;
+    padding-bottom: 2px;
+    margin: 0px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    min-height: 100vh;
+    /*background-color: #efefef; */
+}
+
+.body-container {
+    -webkit-flex: 1;
+    flex: 1;
+    /* needed to prevent pages with a very small height and browsers not supporting flex */
+    min-height: 500px
+}
+
+body#home {
+    text-align: center;
+}
+
+.form-control-sm {
+    height:38px;
+}
+
+header ul.nav li {
+    margin-bottom: 0
+}
+
+footer {
+    background: #ecf0f1;
+    margin-top: 2em;
+    padding-top: 2em;
+    padding-bottom: 2em
+}
+
+footer p {
+    color: #7b8a8b;
+    font-size: 13px;
+    margin-bottom: 0.25em
+}
+
+footer #footer-resources {
+    text-align: right
+}
+
+footer #footer-resources i {
+    color: #7b8a8b;
+    font-size: 28.5px;
+    margin-left: 0.5em
+}
+
+
+/* loader */
+.glyphicon-refresh-animate {
+    margin-right: 5px;
+    -animation: spin .7s infinite linear;
+    -webkit-animation: spin2 .7s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
+.spin-loader {
+    position: absolute;
+    top: 45%;
+    left: 45%;
+    padding: 25px;
+    background-color: #efefef;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    font-size: 1.5em;
+    box-shadow: 5px 5px 5px #aaa;
+}
+
+/* utilities */
+
+.text-green {
+    color: green;
+}
+
+.text-red {
+    color: red;
+}
+
+.lg {
+    font-size: 1.5em;
+}
+
+.pad-left-0 {
+    padding-left:0;
+}
+
+.margin-left-10 {
+    margin-left:10px;
+}
+
+.text-size-150 {
+    font-size: 150px;
+    line-height: 148px;
+}
+.text-size-20 {
+    font-size: 20px;
+}
+.text-bold {
+    font-weigt: bold;
+}
+.margin-top-5  {
+    margin-top: 5px;
+}
+
+.table thead {
+    background-color: #efefef;
+}

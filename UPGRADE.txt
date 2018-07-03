@@ -1,0 +1,14 @@
+Apache
+    Enable module_rewrite
+        Uncomment in /usr/local/etc/apache24/httpd.conf
+            LoadModule rewrite_module libexec/apache24/mod_rewrite.so
+
+    Add vhost
+
+PHP
+    Enable pgsql_pdo.so
+    Enable short_open_tag
+
+Postgre
+    Enable ltree extension
+

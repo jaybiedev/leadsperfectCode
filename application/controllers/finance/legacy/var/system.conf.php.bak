@@ -1,0 +1,14 @@
+<?
+	if (!session_is_registered('SYSCONF'))
+	{
+		session_register('SYSCONF');
+		$SYSCONF = null;
+		$SYSCONF = array();
+	}
+
+	$qr = pg_exec("select * from sysconfig");
+	while ($r = mysql_fetch_object($qr))
+	{
+		$SYSCONF[$r->sysconfig]=$r->value;
+	}
+?>
