@@ -15,21 +15,34 @@ class UserSecurity {
     public $User;
 
 
-    function __construct() {
-
+    function __construct() {    
         $this->CI =& get_instance();
-
-        $this->CI->load->library('session');
-        $this->SessionManager = $this->CI->session;
+        /*
+        if (session_status() == PHP_SESSION_ACTIVE) {
+            // wrong session object
+            if (false == property_exists($this->CI, 'session')) {
+                unset($_SESSION);
+                session_destroy();
+            }
+        } */
+       //  $this->CI->load->library('session');
+       // $this->SessionManager = $this->CI->session;
+       $this->SessionManager = new SessionManager(null, 'LEGACY');
+       $this->SessionManager->start();
+   
     }
 
     function isLogged() {
 
-        $User = $this->SessionManager->User; //set_userdata($array);
-
-        if (false == $User)
+        if (empty($this->SessionManager) || empty($this->SessionManager->get('User')))
             return false;
+        
+        $User = $this->SessionManager->get('User'); //set_userdata($array);
 
+        return (intval($User->id) > 0);
+
+        // if strick session
+        
         $this->CI->db->where('id', $User->id);
         $q = $this->CI->db->get('user');
 
@@ -38,20 +51,22 @@ class UserSecurity {
     }
 
     public function getUser() {
-        if (empty($this->User)) {
-            $meta = $this->SessionManager->User;
+        if (empty($this->User) || empty($this->User->id)) {
+            $meta = $this->SessionManager->get('User');
             $this->User = new \Model\User((array)$meta);
         }
+
         return $this->User;
     }
 
+    
     public function IsAdmin() {
         $User = $this->getUser();
         // todo: need to get from JSON roles
         return ($User->roles == 'A');
     }
 
-    private function hashPassword($password) {
+    public function hashPassword($password) {
        // return sha1($this->salt . '@' . $password);
         $options = [
             'cost' => 11,
@@ -84,11 +99,10 @@ class UserSecurity {
         }
 
         $User = $q->row();
-
+        
         if (false == $this->verifyPassword($password, $User->password)) {
             return false;
         }
-
 
         $sessionid = md5(time());
         $data = array(
@@ -102,7 +116,7 @@ class UserSecurity {
 
         // log user activity
         $Userlog = new \Model\Userlog;
-        $Userlog->user_id = $this->getUser()->id;
+        $Userlog->user_id = $User->id;
         $Userlog->action = 'login';
 
 
@@ -115,17 +129,19 @@ class UserSecurity {
         $User = $q->row();
 
         // $this->SessionManager->unset_userdata('User');
-        $this->SessionManager->set_userdata('User', $User);
-
+        // $this->SessionManager->set_userdata('User', $User);
+        unset($User->password);
+        $put = $this->SessionManager->put('User', $User);
 
         return $this->IsLogged();
     }
 
     function logout() {
 
-        $this->SessionManager->unset_userdata('User');
-        $this->SessionManager->sess_destroy();
-
+       // $this->SessionManager->unset_userdata('User');
+        // $this->SessionManager->sess_destroy();
+        $this->SessionManager->destroy();
+        
         return true;
     }
 }

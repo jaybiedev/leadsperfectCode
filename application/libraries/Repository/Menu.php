@@ -30,6 +30,8 @@ class Menu extends \Library\Repository\RepositoryAbstract {
             WHERE enabled AND path like '{$path}%'
             ORDER  BY parent_id  NULLS FIRST, sort_order;";
 
+        
+        $sql = "SELECT * FROM menu";
         return $this->db->query($sql);
     }
 }

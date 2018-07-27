@@ -17,7 +17,7 @@ class MainController extends  \CI_Controller {
     {
         parent::__construct();
 
-        $SessionManager = new SessionManager();
+        $SessionManager = new SessionManager(null, 'LEGACY');
         $SessionManager->Start();
 
         $this->Helper = new \Library\Helper();
@@ -29,6 +29,15 @@ class MainController extends  \CI_Controller {
     public function isPost() {
         return ($this->input->method(TRUE) == 'POST');
     }
+    
+    public function inputPost($name) {
+        return $this->input->post($name);
+    }
 
+    public function renderJson($data, $success=true, $message=null) {
+        $data = array('data'=>$data, 'success'=>$success, 'message'=>$message);
+        echo json_encode($data);
+        exit;
+    }
 
 }

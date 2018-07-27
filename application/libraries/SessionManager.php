@@ -85,7 +85,7 @@ class SessionManager  {
         return session_regenerate_id(true);
     }
 
-    public function Get($name)
+    public function get($name)
     {
         $result = null;
         if (!empty($this->privatizer)) {
@@ -100,7 +100,7 @@ class SessionManager  {
         return $result;
     }
 
-    public function Put($name, $value)
+    public function put($name, $value)
     {
         if (!empty($this->privatizer))
             $_SESSION[$this->privatizer][$name] = $value;
@@ -111,7 +111,7 @@ class SessionManager  {
     }
 
 
-    public function Has($name)
+    public function has($name)
     {
 
         if (!empty($this->privatizer))
@@ -120,7 +120,7 @@ class SessionManager  {
             return isset($_SESSION[$name]);
     }
 
-    public function Remove($name)
+    public function remove($name)
     {
         if (!empty($this->privatizer))
             unset($_SESSION[$this->privatizer][$name]);
@@ -133,7 +133,7 @@ class SessionManager  {
 
     private function getSessionpath()
     {
-        $path = BASE_PATH . '/sessions';
+        $path = APPPATH . '/sessions';
         if (!is_dir($path))
             throw new Exception("Session Path not found.");
 

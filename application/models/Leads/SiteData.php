@@ -1,6 +1,6 @@
 <?php
 
-namespace Model;
+namespace Model\Leads;
 
 /**
  * Entity-Model
@@ -8,13 +8,14 @@ namespace Model;
  * @package Model
  */
 
-class Content extends \Model\AbstractModel {
+class SiteData extends \Model\AbstractModel {
 
-    public $table = "content";
+    public $table = "site_data";
 
     public $id;
-    public $content;
-    public $date_published;
+    public $site_id;
+    public $field;
+    public $field_value;
     public $enabled;
 
     public function setId($id)

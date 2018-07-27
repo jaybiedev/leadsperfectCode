@@ -26,5 +26,10 @@ class Account extends \Library\Logic\LogicAbstract
         return $DataObject->getId();
 
     }
+    
+    static public function getAccountsByUserId($user_id) {
+        $Repository = new \Library\Repository\Account();
+        return $Repository->getAccountsByUserId($user_id);        
+    }
 
 }

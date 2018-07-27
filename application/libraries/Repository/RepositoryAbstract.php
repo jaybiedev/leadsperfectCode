@@ -57,7 +57,19 @@ abstract class RepositoryAbstract  {
         return $this->total_rows;
     }
 
-    public function getArray() {
+    public function getNext() {
+        if (empty($this->query))
+            $this->query = $this->getQuery();
+         
+        $row = $this->query->unbuffered_row();
+        // $this->query->data_seek(1); // skip next
+        if (!$row)
+            return false;
+        
+        return $row;
+    }
+    
+    public function getArray($key=null) {
 
         if (empty($this->query))
             $this->query = $this->getQuery();
@@ -65,12 +77,20 @@ abstract class RepositoryAbstract  {
         $records = array();
         foreach ($this->query->result_array() as $row)
         {
-            if (empty($this->mdoel)) {
-                $records[] = $row;
+            if (empty($this->model)) {
+                if (!empty($key)) {
+                    $records[$row[$key]] = $row;
+                }
+                else {
+                    $records[] = $row;                    
+                }
             }
             else {
-                $classname = "Model\{$this->model}";
-                $records[] = new $classname($row);
+                $classname = "Model\\"  . $this->model;
+                if (!empty($key))
+                    $records[$row[$key]] = new $classname($row);
+                else
+                    $records[] = new $classname($row);
             }
         }
 

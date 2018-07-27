@@ -73,12 +73,21 @@ class View {
         else {
             $content = null;
 
-            if ($is_smarty)
-                $content .=$this->CI->Smarty->fetch($view, $data);
-            else
-                $content .=$this->CI->load->view($view, $data, true);
-
-            ob_clean();
+            if ($is_smarty) {
+                $content .= $this->CI->Smarty->fetch($view, $data);
+            }
+            elseif (file_exists(APPPATH . 'views/' . $view)) {
+                $content .= $this->CI->load->view($view, $data, true);
+            }
+            elseif (file_exists(APPPATH . 'views/templates/' . $view)) {
+                $view = '/templates/'. $view;
+                $content .= $this->CI->load->view($view, $data, true);
+            }
+            else {
+                $content = "View {$view} not found, ";
+            }
+            
+            @ob_clean();
             echo $content;
             exit;
         }

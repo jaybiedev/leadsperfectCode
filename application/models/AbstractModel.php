@@ -33,4 +33,13 @@ abstract class AbstractModel {
             }
         }
     }
+    
+    function getMeta() {
+        return get_object_vars($this);
+    }
+    
+    function save($meta) {
+        $DataObject = new \Library\DataObject($this);
+        $DataObject->save($meta);
+    }
 }

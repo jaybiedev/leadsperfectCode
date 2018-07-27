@@ -29,6 +29,9 @@ class Account extends \Model\AbstractModel {
     public $date_modified;
     public $user_id_modified;
     public $user_id_added;
+    
+    public $template_id;
+    public $guid;
     public $enabled;
 
     public function setId($id)

@@ -1,0 +1,55 @@
+<md-card class="dashboard-card">
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">Managed Sites</span>
+        </md-card-title-text>
+        <md-menu md-position-mode="target-right target">
+            <md-button aria-label="Action menu" class="md-icon-button" ng-click="openMenu($mdOpenMenu, $event)">
+            <i class="material-icons">more_vert</i>
+            </md-button>
+          <md-menu-content width="4">
+            <md-menu-item>
+              <md-button ng-click="siteAction('addnew')">
+                <i class="material-icons">add</i>
+                Add New Site 
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-click="siteAction('download')">
+                <i class="material-icons">cloud_download</i>
+                CSV Download 
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-click="siteAction()">
+                <i class="material-icons">cloud_upload</i>
+                Upload CSV
+              </md-button>
+            </md-menu-item>
+            <md-menu-divider></md-menu-divider>
+            <md-menu-item>
+              <md-button ng-click="siteAction('disabled_selected')">
+                <i class="material-icons">delete_outline</i>
+                Disable Selected
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+          
+    </md-card-title>
+    <md-card-content>
+        <md-list flex>
+            <md-list-item class="md-3-line" ng-repeat="item in Data.Sites" ng-click="redirectToSite(item)">
+                <md-checkbox ng-model="item.id" aria-label="Select {{item.name}" class="md-primary"></md-checkbox>
+                <img ng-if="false" ng-src="{{item.logo_url}}?{{$index}}" class="md-avatar" alt="{{item.name}}" />
+                <div class="md-list-item-text" layout="column">
+                    <h3>{{ item.name }}</h3>
+                    <p>{{ item.address1 }} {{ item.address2 }} {{ item.city }} {{ item.state }} {{ item.zip }} </p>
+                </div>
+                <div><i class="material-icons" title="Manage site" alt="Manage site" 
+                	ng-click="siteAction('managesite', '{{ item.guid }}')">edit</i>
+               	</div>
+            </md-list-item>
+        </md-list>
+    </md-card-content>
+</md-card>

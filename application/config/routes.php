@@ -73,4 +73,5 @@ if (is_file($routes_file)) {
     include_once($routes_file);
     $bundle_route = getRoutes();
     $route = array_merge($route, $bundle_route);
+    
 }

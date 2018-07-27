@@ -385,10 +385,13 @@ $config['encryption_key'] = '';
 | except for 'cookie_prefix' and 'cookie_httponly', which are ignored here.
 |
 */
-$config['sess_driver'] = 'files';
+// $config['sess_driver'] = 'files';
+// $config['sess_save_path'] = NULL;
+$config['sess_driver'] = 'database';
+$config['sess_save_path'] = 'ci_sessions';
+
 $config['sess_cookie_name'] = 'savvylogics_session_hda10';
 $config['sess_expiration'] = 7200;
-$config['sess_save_path'] = NULL;
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;
@@ -554,17 +557,21 @@ spl_autoload_register(function($namespace){
         elseif( strpos($namespace,'Interface\\') !== false ) {
             $base_dir = 'interfaces/';
         }
+        elseif( strpos($namespace,'Controllers\\') !== false ) {
+            $base_dir = 'controllers/';
+        }
         elseif( strpos($namespace,'Library\\') !== false ) {
             $base_dir = 'libraries/';
         }
 
         $classfile = APPPATH . "{$base_dir}"  . implode('/', (array)$class_parts) . ".php";
 
-
         if (file_exists($classfile)) {
             require_once($classfile);
         }
         else {
+            echo $classfile;
+            echo "<br />";
             echo "Missing {$namespace} ";
             die;
         }

@@ -50,7 +50,6 @@ class DataObject {
         if (empty($updates))
             $updates = get_object_vars($this->Model);
 
-
         // check if Id is provided, then update
         $meta = array();
         foreach ($updates as $key => $value) {
@@ -79,7 +78,6 @@ class DataObject {
 
         if (in_array('user_id_modified', $this->fields) && empty($updates['user_id_modified']))
             $this->db->set('user_id_modified', $current_user_id);
-
 
         $result = false;
         if (empty($this->Model->getId())) {

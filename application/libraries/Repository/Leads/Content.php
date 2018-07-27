@@ -4,7 +4,7 @@ namespace Library\Repository\Leads;
 
 class Content extends \Library\Repository\RepositoryAbstract {
 
-    public $model = 'Content';
+    public $model = 'Leads\Content';
 
     public function getBySlug($slug)
     {
@@ -13,11 +13,14 @@ class Content extends \Library\Repository\RepositoryAbstract {
                 FROM 
                   content
                 JOIN
-                  slug ON slug.content_id=content.id                  
+                  site ON site.template_id=content.template_id                  
                 WHERE 
                   content.enabled
-                  AND slug.enabled
-                  AND slug.slug = '{$slug}'";
+                  AND content.date_published IS NOT NULL
+                  AND site.enabled
+                  AND site.slug = '{$slug}'
+               ORDER by content.date_published DESC
+               LIMIT 1";
 
         return $this;
     }

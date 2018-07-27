@@ -27,5 +27,21 @@ class User extends \Model\AbstractModel {
     {
         return $this->id;
     }
+    
+    public function isAdmin() 
+    {
+        if (empty($this->roles))
+            return false;
+        
+        $roles = null;
+        if (is_string($this->roles)) {
+            $roles = json_decode($this->roles);
+        }
+        
+        if (!is_object($roles) || !property_exists($roles, 'admin'))
+            return false;
+        
+        return $roles->admin;        
+    }
 
 }

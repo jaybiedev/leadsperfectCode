@@ -99,8 +99,11 @@ $db['default'] = array(
 $CI = get_instance();
 $database = $CI->config->item('database');
 
+if (empty($database['driver']))
+    $database['driver'] = 'pgsql';
+
 $db['default'] = array(
-    'dsn'   => 'pgsql:host=' . $database['host'] . ';port=' . $database['port'] . ';dbname=' . $database['database'],
+    'dsn'   => $database['driver'] . ':host=' . $database['host'] . ';port=' . $database['port'] . ';dbname=' . $database['database'],
     'hostname' => $database['host'],
     'username' => $database['username'],
     'password' => $database['password'],
