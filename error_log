@@ -1,0 +1,1 @@
+[04-Aug-2018 15:31:23 America/Chicago] PHP Fatal error:  Can't use function return value in write context in /home2/spyplfmy/public_html/leadsperfect/code/development/2.0/application/third_party/smarty/plugins/function.youtubeiframe.php on line 27

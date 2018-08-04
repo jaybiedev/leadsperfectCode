@@ -30,10 +30,20 @@ class View {
     function __construct() {
 
         $this->CI =& get_instance();
-
         $this->Helper = new \Library\Helper();
+        $this->CI->Smarty->left_delimiter = "[[";
+        $this->CI->Smarty->right_delimiter = "]]";
     }
 
+    public function assignTemplateVariable($name, $value) {
+        return $this->CI->Smarty->assign($name, $value);    
+    }
+    
+    public function parseTemplateContent($content) {
+        return $this->CI->Smarty->fetch('eval:' . $content);
+    }
+    
+    
     public function setPageTitle($title) {
         $this->page_title = $title;
     }
@@ -67,6 +77,7 @@ class View {
         if ($return_as_string && $is_smarty) {
             return $this->CI->Smarty->fetch($view, $data);
         }
+        
         if ($return_as_string && !$is_smarty) {
             return $this->load->view($view, $data, $return_as_string);
         }

@@ -806,3 +806,344 @@ DEBUG - 2018-07-26 19:39:58 --> Smarty Class Initialized
 INFO - 2018-07-26 19:39:58 --> Controller Class Initialized
 INFO - 2018-07-26 19:39:58 --> Final output sent to browser
 DEBUG - 2018-07-26 19:39:58 --> Total execution time: 0.0339
+INFO - 2018-07-26 19:54:17 --> Config Class Initialized
+INFO - 2018-07-26 19:54:17 --> Hooks Class Initialized
+DEBUG - 2018-07-26 19:54:17 --> UTF-8 Support Enabled
+INFO - 2018-07-26 19:54:17 --> Utf8 Class Initialized
+INFO - 2018-07-26 19:54:17 --> URI Class Initialized
+INFO - 2018-07-26 19:54:17 --> Router Class Initialized
+INFO - 2018-07-26 19:54:17 --> Output Class Initialized
+INFO - 2018-07-26 19:54:17 --> Security Class Initialized
+DEBUG - 2018-07-26 19:54:17 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-07-26 19:54:17 --> Input Class Initialized
+INFO - 2018-07-26 19:54:17 --> Language Class Initialized
+INFO - 2018-07-26 19:54:17 --> Loader Class Initialized
+INFO - 2018-07-26 19:54:17 --> Helper loaded: asset_helper
+INFO - 2018-07-26 19:54:17 --> Helper loaded: url_helper
+INFO - 2018-07-26 19:54:17 --> Helper loaded: file_helper
+INFO - 2018-07-26 19:54:17 --> Helper loaded: utilities_helper
+INFO - 2018-07-26 19:54:17 --> Database Driver Class Initialized
+INFO - 2018-07-26 19:54:17 --> Database Driver Class Initialized
+DEBUG - 2018-07-26 19:54:17 --> Smarty Class Initialized
+INFO - 2018-07-26 19:54:17 --> Controller Class Initialized
+INFO - 2018-07-26 19:54:17 --> Final output sent to browser
+DEBUG - 2018-07-26 19:54:17 --> Total execution time: 0.0347
+INFO - 2018-07-26 20:00:24 --> Config Class Initialized
+INFO - 2018-07-26 20:00:24 --> Hooks Class Initialized
+DEBUG - 2018-07-26 20:00:24 --> UTF-8 Support Enabled
+INFO - 2018-07-26 20:00:24 --> Utf8 Class Initialized
+INFO - 2018-07-26 20:00:24 --> URI Class Initialized
+INFO - 2018-07-26 20:00:24 --> Router Class Initialized
+INFO - 2018-07-26 20:00:24 --> Output Class Initialized
+INFO - 2018-07-26 20:00:24 --> Security Class Initialized
+DEBUG - 2018-07-26 20:00:24 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-07-26 20:00:24 --> Input Class Initialized
+INFO - 2018-07-26 20:00:24 --> Language Class Initialized
+INFO - 2018-07-26 20:00:24 --> Loader Class Initialized
+INFO - 2018-07-26 20:00:24 --> Helper loaded: asset_helper
+INFO - 2018-07-26 20:00:24 --> Helper loaded: url_helper
+INFO - 2018-07-26 20:00:24 --> Helper loaded: file_helper
+INFO - 2018-07-26 20:00:24 --> Helper loaded: utilities_helper
+INFO - 2018-07-26 20:00:24 --> Database Driver Class Initialized
+INFO - 2018-07-26 20:00:24 --> Database Driver Class Initialized
+DEBUG - 2018-07-26 20:00:24 --> Smarty Class Initialized
+INFO - 2018-07-26 20:00:24 --> Controller Class Initialized
+INFO - 2018-07-26 20:00:57 --> Config Class Initialized
+INFO - 2018-07-26 20:00:57 --> Hooks Class Initialized
+DEBUG - 2018-07-26 20:00:57 --> UTF-8 Support Enabled
+INFO - 2018-07-26 20:00:57 --> Utf8 Class Initialized
+INFO - 2018-07-26 20:00:57 --> URI Class Initialized
+INFO - 2018-07-26 20:00:57 --> Router Class Initialized
+INFO - 2018-07-26 20:00:57 --> Output Class Initialized
+INFO - 2018-07-26 20:00:57 --> Security Class Initialized
+DEBUG - 2018-07-26 20:00:57 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-07-26 20:00:57 --> Input Class Initialized
+INFO - 2018-07-26 20:00:57 --> Language Class Initialized
+INFO - 2018-07-26 20:00:57 --> Loader Class Initialized
+INFO - 2018-07-26 20:00:57 --> Helper loaded: asset_helper
+INFO - 2018-07-26 20:00:57 --> Helper loaded: url_helper
+INFO - 2018-07-26 20:00:57 --> Helper loaded: file_helper
+INFO - 2018-07-26 20:00:57 --> Helper loaded: utilities_helper
+INFO - 2018-07-26 20:00:57 --> Database Driver Class Initialized
+INFO - 2018-07-26 20:00:57 --> Database Driver Class Initialized
+DEBUG - 2018-07-26 20:00:57 --> Smarty Class Initialized
+INFO - 2018-07-26 20:00:57 --> Controller Class Initialized
+INFO - 2018-07-26 20:00:57 --> Final output sent to browser
+DEBUG - 2018-07-26 20:00:57 --> Total execution time: 0.0286
+INFO - 2018-07-26 20:00:58 --> Config Class Initialized
+INFO - 2018-07-26 20:00:58 --> Hooks Class Initialized
+DEBUG - 2018-07-26 20:00:58 --> UTF-8 Support Enabled
+INFO - 2018-07-26 20:00:58 --> Utf8 Class Initialized
+INFO - 2018-07-26 20:00:58 --> URI Class Initialized
+INFO - 2018-07-26 20:00:58 --> Router Class Initialized
+INFO - 2018-07-26 20:00:58 --> Output Class Initialized
+INFO - 2018-07-26 20:00:58 --> Security Class Initialized
+DEBUG - 2018-07-26 20:00:58 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-07-26 20:00:58 --> Input Class Initialized
+INFO - 2018-07-26 20:00:58 --> Language Class Initialized
+INFO - 2018-07-26 20:00:58 --> Loader Class Initialized
+INFO - 2018-07-26 20:00:58 --> Helper loaded: asset_helper
+INFO - 2018-07-26 20:00:58 --> Helper loaded: url_helper
+INFO - 2018-07-26 20:00:58 --> Helper loaded: file_helper
+INFO - 2018-07-26 20:00:58 --> Helper loaded: utilities_helper
+INFO - 2018-07-26 20:00:58 --> Database Driver Class Initialized
+INFO - 2018-07-26 20:00:58 --> Database Driver Class Initialized
+DEBUG - 2018-07-26 20:00:58 --> Smarty Class Initialized
+INFO - 2018-07-26 20:00:58 --> Controller Class Initialized
+INFO - 2018-07-26 20:00:58 --> Final output sent to browser
+DEBUG - 2018-07-26 20:00:58 --> Total execution time: 0.0270
+INFO - 2018-07-26 20:01:06 --> Config Class Initialized
+INFO - 2018-07-26 20:01:06 --> Hooks Class Initialized
+DEBUG - 2018-07-26 20:01:06 --> UTF-8 Support Enabled
+INFO - 2018-07-26 20:01:06 --> Utf8 Class Initialized
+INFO - 2018-07-26 20:01:06 --> URI Class Initialized
+INFO - 2018-07-26 20:01:06 --> Router Class Initialized
+INFO - 2018-07-26 20:01:06 --> Output Class Initialized
+INFO - 2018-07-26 20:01:06 --> Security Class Initialized
+DEBUG - 2018-07-26 20:01:06 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-07-26 20:01:06 --> Input Class Initialized
+INFO - 2018-07-26 20:01:06 --> Language Class Initialized
+INFO - 2018-07-26 20:01:06 --> Loader Class Initialized
+INFO - 2018-07-26 20:01:06 --> Helper loaded: asset_helper
+INFO - 2018-07-26 20:01:06 --> Helper loaded: url_helper
+INFO - 2018-07-26 20:01:06 --> Helper loaded: file_helper
+INFO - 2018-07-26 20:01:06 --> Helper loaded: utilities_helper
+INFO - 2018-07-26 20:01:06 --> Database Driver Class Initialized
+INFO - 2018-07-26 20:01:06 --> Database Driver Class Initialized
+DEBUG - 2018-07-26 20:01:06 --> Smarty Class Initialized
+INFO - 2018-07-26 20:01:06 --> Controller Class Initialized
+INFO - 2018-07-26 20:03:43 --> Config Class Initialized
+INFO - 2018-07-26 20:03:43 --> Hooks Class Initialized
+DEBUG - 2018-07-26 20:03:43 --> UTF-8 Support Enabled
+INFO - 2018-07-26 20:03:43 --> Utf8 Class Initialized
+INFO - 2018-07-26 20:03:43 --> URI Class Initialized
+INFO - 2018-07-26 20:03:43 --> Router Class Initialized
+INFO - 2018-07-26 20:03:43 --> Output Class Initialized
+INFO - 2018-07-26 20:03:43 --> Security Class Initialized
+DEBUG - 2018-07-26 20:03:43 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-07-26 20:03:43 --> Input Class Initialized
+INFO - 2018-07-26 20:03:43 --> Language Class Initialized
+INFO - 2018-07-26 20:03:43 --> Loader Class Initialized
+INFO - 2018-07-26 20:03:43 --> Helper loaded: asset_helper
+INFO - 2018-07-26 20:03:43 --> Helper loaded: url_helper
+INFO - 2018-07-26 20:03:43 --> Helper loaded: file_helper
+INFO - 2018-07-26 20:03:43 --> Helper loaded: utilities_helper
+INFO - 2018-07-26 20:03:43 --> Database Driver Class Initialized
+INFO - 2018-07-26 20:03:43 --> Database Driver Class Initialized
+DEBUG - 2018-07-26 20:03:43 --> Smarty Class Initialized
+INFO - 2018-07-26 20:03:43 --> Controller Class Initialized
+INFO - 2018-07-26 20:03:43 --> Final output sent to browser
+DEBUG - 2018-07-26 20:03:43 --> Total execution time: 0.0328
+INFO - 2018-07-26 20:03:43 --> Config Class Initialized
+INFO - 2018-07-26 20:03:43 --> Hooks Class Initialized
+DEBUG - 2018-07-26 20:03:43 --> UTF-8 Support Enabled
+INFO - 2018-07-26 20:03:43 --> Utf8 Class Initialized
+INFO - 2018-07-26 20:03:43 --> URI Class Initialized
+INFO - 2018-07-26 20:03:43 --> Router Class Initialized
+INFO - 2018-07-26 20:03:43 --> Output Class Initialized
+INFO - 2018-07-26 20:03:43 --> Security Class Initialized
+DEBUG - 2018-07-26 20:03:43 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-07-26 20:03:43 --> Input Class Initialized
+INFO - 2018-07-26 20:03:43 --> Language Class Initialized
+INFO - 2018-07-26 20:03:43 --> Loader Class Initialized
+INFO - 2018-07-26 20:03:43 --> Helper loaded: asset_helper
+INFO - 2018-07-26 20:03:43 --> Helper loaded: url_helper
+INFO - 2018-07-26 20:03:43 --> Helper loaded: file_helper
+INFO - 2018-07-26 20:03:43 --> Helper loaded: utilities_helper
+INFO - 2018-07-26 20:03:43 --> Database Driver Class Initialized
+INFO - 2018-07-26 20:03:43 --> Database Driver Class Initialized
+DEBUG - 2018-07-26 20:03:43 --> Smarty Class Initialized
+INFO - 2018-07-26 20:03:43 --> Controller Class Initialized
+INFO - 2018-07-26 20:03:43 --> Final output sent to browser
+DEBUG - 2018-07-26 20:03:43 --> Total execution time: 0.0334
+INFO - 2018-07-26 20:03:47 --> Config Class Initialized
+INFO - 2018-07-26 20:03:47 --> Hooks Class Initialized
+DEBUG - 2018-07-26 20:03:47 --> UTF-8 Support Enabled
+INFO - 2018-07-26 20:03:47 --> Utf8 Class Initialized
+INFO - 2018-07-26 20:03:47 --> URI Class Initialized
+INFO - 2018-07-26 20:03:47 --> Router Class Initialized
+INFO - 2018-07-26 20:03:47 --> Output Class Initialized
+INFO - 2018-07-26 20:03:47 --> Security Class Initialized
+DEBUG - 2018-07-26 20:03:47 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-07-26 20:03:47 --> Input Class Initialized
+INFO - 2018-07-26 20:03:47 --> Language Class Initialized
+INFO - 2018-07-26 20:03:47 --> Loader Class Initialized
+INFO - 2018-07-26 20:03:47 --> Helper loaded: asset_helper
+INFO - 2018-07-26 20:03:47 --> Helper loaded: url_helper
+INFO - 2018-07-26 20:03:47 --> Helper loaded: file_helper
+INFO - 2018-07-26 20:03:47 --> Helper loaded: utilities_helper
+INFO - 2018-07-26 20:03:47 --> Database Driver Class Initialized
+INFO - 2018-07-26 20:03:47 --> Database Driver Class Initialized
+DEBUG - 2018-07-26 20:03:47 --> Smarty Class Initialized
+INFO - 2018-07-26 20:03:47 --> Controller Class Initialized
+INFO - 2018-07-26 20:03:47 --> Final output sent to browser
+DEBUG - 2018-07-26 20:03:47 --> Total execution time: 0.0286
+INFO - 2018-07-26 20:03:47 --> Config Class Initialized
+INFO - 2018-07-26 20:03:47 --> Hooks Class Initialized
+DEBUG - 2018-07-26 20:03:47 --> UTF-8 Support Enabled
+INFO - 2018-07-26 20:03:47 --> Utf8 Class Initialized
+INFO - 2018-07-26 20:03:47 --> URI Class Initialized
+INFO - 2018-07-26 20:03:47 --> Router Class Initialized
+INFO - 2018-07-26 20:03:47 --> Output Class Initialized
+INFO - 2018-07-26 20:03:47 --> Security Class Initialized
+DEBUG - 2018-07-26 20:03:47 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-07-26 20:03:47 --> Input Class Initialized
+INFO - 2018-07-26 20:03:47 --> Language Class Initialized
+INFO - 2018-07-26 20:03:47 --> Loader Class Initialized
+INFO - 2018-07-26 20:03:47 --> Helper loaded: asset_helper
+INFO - 2018-07-26 20:03:47 --> Helper loaded: url_helper
+INFO - 2018-07-26 20:03:47 --> Helper loaded: file_helper
+INFO - 2018-07-26 20:03:47 --> Helper loaded: utilities_helper
+INFO - 2018-07-26 20:03:47 --> Database Driver Class Initialized
+INFO - 2018-07-26 20:03:47 --> Database Driver Class Initialized
+DEBUG - 2018-07-26 20:03:47 --> Smarty Class Initialized
+INFO - 2018-07-26 20:03:47 --> Controller Class Initialized
+INFO - 2018-07-26 20:03:48 --> Final output sent to browser
+DEBUG - 2018-07-26 20:03:48 --> Total execution time: 0.0280
+INFO - 2018-07-26 20:04:12 --> Config Class Initialized
+INFO - 2018-07-26 20:04:12 --> Hooks Class Initialized
+DEBUG - 2018-07-26 20:04:12 --> UTF-8 Support Enabled
+INFO - 2018-07-26 20:04:12 --> Utf8 Class Initialized
+INFO - 2018-07-26 20:04:12 --> URI Class Initialized
+INFO - 2018-07-26 20:04:12 --> Router Class Initialized
+INFO - 2018-07-26 20:04:12 --> Output Class Initialized
+INFO - 2018-07-26 20:04:12 --> Security Class Initialized
+DEBUG - 2018-07-26 20:04:12 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-07-26 20:04:12 --> Input Class Initialized
+INFO - 2018-07-26 20:04:12 --> Language Class Initialized
+INFO - 2018-07-26 20:04:12 --> Loader Class Initialized
+INFO - 2018-07-26 20:04:12 --> Helper loaded: asset_helper
+INFO - 2018-07-26 20:04:12 --> Helper loaded: url_helper
+INFO - 2018-07-26 20:04:12 --> Helper loaded: file_helper
+INFO - 2018-07-26 20:04:12 --> Helper loaded: utilities_helper
+INFO - 2018-07-26 20:04:12 --> Database Driver Class Initialized
+INFO - 2018-07-26 20:04:12 --> Database Driver Class Initialized
+DEBUG - 2018-07-26 20:04:12 --> Smarty Class Initialized
+INFO - 2018-07-26 20:04:12 --> Controller Class Initialized
+INFO - 2018-07-26 20:05:07 --> Config Class Initialized
+INFO - 2018-07-26 20:05:07 --> Hooks Class Initialized
+DEBUG - 2018-07-26 20:05:07 --> UTF-8 Support Enabled
+INFO - 2018-07-26 20:05:07 --> Utf8 Class Initialized
+INFO - 2018-07-26 20:05:07 --> URI Class Initialized
+INFO - 2018-07-26 20:05:07 --> Router Class Initialized
+INFO - 2018-07-26 20:05:07 --> Output Class Initialized
+INFO - 2018-07-26 20:05:07 --> Security Class Initialized
+DEBUG - 2018-07-26 20:05:07 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-07-26 20:05:07 --> Input Class Initialized
+INFO - 2018-07-26 20:05:07 --> Language Class Initialized
+INFO - 2018-07-26 20:05:07 --> Loader Class Initialized
+INFO - 2018-07-26 20:05:07 --> Helper loaded: asset_helper
+INFO - 2018-07-26 20:05:07 --> Helper loaded: url_helper
+INFO - 2018-07-26 20:05:07 --> Helper loaded: file_helper
+INFO - 2018-07-26 20:05:07 --> Helper loaded: utilities_helper
+INFO - 2018-07-26 20:05:07 --> Database Driver Class Initialized
+INFO - 2018-07-26 20:05:07 --> Database Driver Class Initialized
+DEBUG - 2018-07-26 20:05:07 --> Smarty Class Initialized
+INFO - 2018-07-26 20:05:07 --> Controller Class Initialized
+INFO - 2018-07-26 20:05:07 --> Final output sent to browser
+DEBUG - 2018-07-26 20:05:07 --> Total execution time: 0.0342
+INFO - 2018-07-26 20:05:32 --> Config Class Initialized
+INFO - 2018-07-26 20:05:32 --> Hooks Class Initialized
+DEBUG - 2018-07-26 20:05:32 --> UTF-8 Support Enabled
+INFO - 2018-07-26 20:05:32 --> Utf8 Class Initialized
+INFO - 2018-07-26 20:05:32 --> URI Class Initialized
+INFO - 2018-07-26 20:05:32 --> Router Class Initialized
+INFO - 2018-07-26 20:05:32 --> Output Class Initialized
+INFO - 2018-07-26 20:05:32 --> Security Class Initialized
+DEBUG - 2018-07-26 20:05:32 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-07-26 20:05:32 --> Input Class Initialized
+INFO - 2018-07-26 20:05:32 --> Language Class Initialized
+INFO - 2018-07-26 20:05:32 --> Loader Class Initialized
+INFO - 2018-07-26 20:05:32 --> Helper loaded: asset_helper
+INFO - 2018-07-26 20:05:32 --> Helper loaded: url_helper
+INFO - 2018-07-26 20:05:32 --> Helper loaded: file_helper
+INFO - 2018-07-26 20:05:32 --> Helper loaded: utilities_helper
+INFO - 2018-07-26 20:05:32 --> Database Driver Class Initialized
+INFO - 2018-07-26 20:05:32 --> Database Driver Class Initialized
+DEBUG - 2018-07-26 20:05:32 --> Smarty Class Initialized
+INFO - 2018-07-26 20:05:32 --> Controller Class Initialized
+INFO - 2018-07-26 20:06:39 --> Config Class Initialized
+INFO - 2018-07-26 20:06:39 --> Hooks Class Initialized
+DEBUG - 2018-07-26 20:06:39 --> UTF-8 Support Enabled
+INFO - 2018-07-26 20:06:39 --> Utf8 Class Initialized
+INFO - 2018-07-26 20:06:39 --> URI Class Initialized
+INFO - 2018-07-26 20:06:39 --> Router Class Initialized
+INFO - 2018-07-26 20:06:39 --> Output Class Initialized
+INFO - 2018-07-26 20:06:39 --> Security Class Initialized
+DEBUG - 2018-07-26 20:06:39 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-07-26 20:06:39 --> Input Class Initialized
+INFO - 2018-07-26 20:06:39 --> Language Class Initialized
+INFO - 2018-07-26 20:06:39 --> Loader Class Initialized
+INFO - 2018-07-26 20:06:39 --> Helper loaded: asset_helper
+INFO - 2018-07-26 20:06:39 --> Helper loaded: url_helper
+INFO - 2018-07-26 20:06:39 --> Helper loaded: file_helper
+INFO - 2018-07-26 20:06:39 --> Helper loaded: utilities_helper
+INFO - 2018-07-26 20:06:39 --> Database Driver Class Initialized
+INFO - 2018-07-26 20:06:39 --> Database Driver Class Initialized
+DEBUG - 2018-07-26 20:06:39 --> Smarty Class Initialized
+INFO - 2018-07-26 20:06:39 --> Controller Class Initialized
+INFO - 2018-07-26 20:06:39 --> Final output sent to browser
+DEBUG - 2018-07-26 20:06:39 --> Total execution time: 0.0297
+INFO - 2018-07-26 20:08:51 --> Config Class Initialized
+INFO - 2018-07-26 20:08:51 --> Hooks Class Initialized
+DEBUG - 2018-07-26 20:08:51 --> UTF-8 Support Enabled
+INFO - 2018-07-26 20:08:51 --> Utf8 Class Initialized
+INFO - 2018-07-26 20:08:51 --> URI Class Initialized
+INFO - 2018-07-26 20:08:51 --> Router Class Initialized
+INFO - 2018-07-26 20:08:51 --> Output Class Initialized
+INFO - 2018-07-26 20:08:51 --> Security Class Initialized
+DEBUG - 2018-07-26 20:08:51 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-07-26 20:08:51 --> Input Class Initialized
+INFO - 2018-07-26 20:08:51 --> Language Class Initialized
+INFO - 2018-07-26 20:08:51 --> Loader Class Initialized
+INFO - 2018-07-26 20:08:51 --> Helper loaded: asset_helper
+INFO - 2018-07-26 20:08:51 --> Helper loaded: url_helper
+INFO - 2018-07-26 20:08:51 --> Helper loaded: file_helper
+INFO - 2018-07-26 20:08:51 --> Helper loaded: utilities_helper
+INFO - 2018-07-26 20:08:51 --> Database Driver Class Initialized
+INFO - 2018-07-26 20:08:51 --> Database Driver Class Initialized
+DEBUG - 2018-07-26 20:08:51 --> Smarty Class Initialized
+INFO - 2018-07-26 20:08:51 --> Controller Class Initialized
+INFO - 2018-07-26 20:08:51 --> Final output sent to browser
+DEBUG - 2018-07-26 20:08:51 --> Total execution time: 0.0381
+INFO - 2018-07-26 20:43:38 --> Config Class Initialized
+INFO - 2018-07-26 20:43:38 --> Hooks Class Initialized
+DEBUG - 2018-07-26 20:43:38 --> UTF-8 Support Enabled
+INFO - 2018-07-26 20:43:38 --> Utf8 Class Initialized
+INFO - 2018-07-26 20:43:38 --> URI Class Initialized
+DEBUG - 2018-07-26 20:43:38 --> No URI present. Default controller set.
+INFO - 2018-07-26 20:43:38 --> Router Class Initialized
+INFO - 2018-07-26 20:43:38 --> Output Class Initialized
+INFO - 2018-07-26 20:43:38 --> Security Class Initialized
+DEBUG - 2018-07-26 20:43:38 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-07-26 20:43:38 --> Input Class Initialized
+INFO - 2018-07-26 20:43:38 --> Language Class Initialized
+INFO - 2018-07-26 20:43:38 --> Loader Class Initialized
+INFO - 2018-07-26 20:43:38 --> Helper loaded: asset_helper
+INFO - 2018-07-26 20:43:38 --> Helper loaded: url_helper
+INFO - 2018-07-26 20:43:38 --> Helper loaded: file_helper
+INFO - 2018-07-26 20:43:38 --> Helper loaded: utilities_helper
+INFO - 2018-07-26 20:43:38 --> Database Driver Class Initialized
+INFO - 2018-07-26 20:43:38 --> Database Driver Class Initialized
+DEBUG - 2018-07-26 20:43:38 --> Smarty Class Initialized
+INFO - 2018-07-26 20:43:38 --> Controller Class Initialized
+INFO - 2018-07-26 23:09:38 --> Config Class Initialized
+INFO - 2018-07-26 23:09:38 --> Hooks Class Initialized
+DEBUG - 2018-07-26 23:09:38 --> UTF-8 Support Enabled
+INFO - 2018-07-26 23:09:38 --> Utf8 Class Initialized
+INFO - 2018-07-26 23:09:38 --> URI Class Initialized
+INFO - 2018-07-26 23:09:38 --> Router Class Initialized
+INFO - 2018-07-26 23:09:38 --> Output Class Initialized
+INFO - 2018-07-26 23:09:38 --> Security Class Initialized
+DEBUG - 2018-07-26 23:09:38 --> Global POST, GET and COOKIE data sanitized
+INFO - 2018-07-26 23:09:38 --> Input Class Initialized
+INFO - 2018-07-26 23:09:38 --> Language Class Initialized
+INFO - 2018-07-26 23:09:38 --> Loader Class Initialized
+INFO - 2018-07-26 23:09:38 --> Helper loaded: asset_helper
+INFO - 2018-07-26 23:09:38 --> Helper loaded: url_helper
+INFO - 2018-07-26 23:09:38 --> Helper loaded: file_helper
+INFO - 2018-07-26 23:09:38 --> Helper loaded: utilities_helper
+INFO - 2018-07-26 23:09:38 --> Database Driver Class Initialized
+INFO - 2018-07-26 23:09:38 --> Database Driver Class Initialized
+DEBUG - 2018-07-26 23:09:38 --> Smarty Class Initialized
+INFO - 2018-07-26 23:09:38 --> Controller Class Initialized
