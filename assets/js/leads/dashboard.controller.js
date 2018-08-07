@@ -35,7 +35,7 @@ app.controller('DashboardCtrl', function($scope, $http, $mdDialog, $mdSidenav) {
     
     $scope.redirectToSite = function (Site) {
     	if (Site.guid)
-    		window.location.href = Helper.BaseUrl + '/dashboard/' + Site.guid;
+    		window.location.href = Helper.BaseUrl + '/dashboard/site/' + Site.guid;
     }
 
     $scope.siteAction = function(action, id) {

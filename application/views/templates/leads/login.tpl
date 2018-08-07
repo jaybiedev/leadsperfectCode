@@ -37,7 +37,7 @@
   <div id="title-header">
   	<h1>Login</h1>
   </div>
-  <form action="{$Helper->getUrl()->getLoginUrl()}" method="post" id="loginFrm">
+  <form action="[[$Helper->getUrl()->getLoginUrl()]]" method="post" id="loginFrm">
   <md-content class="md-no-momentum">
 		<md-input-container class="md-icon-float md-block">
 		  <!-- Use floating label instead of placeholder -->

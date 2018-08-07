@@ -40,6 +40,8 @@ abstract class AbstractModel {
     
     function save($meta) {
         $DataObject = new \Library\DataObject($this);
-        $DataObject->save($meta);
+        $result = $DataObject->save($meta);
+
+        return $this;
     }
 }

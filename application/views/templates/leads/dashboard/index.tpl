@@ -69,14 +69,11 @@
       <!--  body -->
       <div>
 	   	<div layout="row" layout-xs="column">
-	   		<div layout="column" flex-50>
-	  			<div flex><?php include_once("_template.php");?></div>
-  				<div flex>
-  					<!--<div file-upload></div> -->            	
-           			<site-list></site-list>   
-  				</div>
-	  		</div>  			
-			<div flex-10><?php include_once("_stats.php");?></div>
+	   		[[if $partial == '_accountadmin.tpl']]
+	   			[[include file="./_accountadmin.tpl"]]
+	   		[[else]]
+	   			[[include file="./_siteadmin.tpl"]]
+	   		[[/if]]	
 		</div>
       </div>
 

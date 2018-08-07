@@ -1,1 +1,2 @@
 [04-Aug-2018 15:31:23 America/Chicago] PHP Fatal error:  Can't use function return value in write context in /home2/spyplfmy/public_html/leadsperfect/code/development/2.0/application/third_party/smarty/plugins/function.youtubeiframe.php on line 27
+[05-Aug-2018 20:08:32 America/Chicago] PHP Fatal error:  Class Model\Error contains 1 abstract method and must therefore be declared abstract or implement the remaining methods (Model\AbstractModel::setId) in /home2/spyplfmy/public_html/leadsperfect/code/development/2.0/application/models/Error.php on line 16

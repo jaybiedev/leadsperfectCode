@@ -6,24 +6,42 @@ use LogicAbstract;
 class Site extends \Library\Logic\LogicAbstract
 {
 
+    /**
+     * @return object \Model\Leads\Site
+     */
     static function getBySlug($slug) {
         $Repository = new \Library\Repository\Leads\Site();
 
-        $Content = $Repository->getBySlug($slug);
-        $Record = $Content->getOne();
+        $DataRecord = $Repository->getBySlug($slug);
+        $ModelRecord = $DataRecord->getOne();
             
-        return $Record;
+        return $ModelRecord;
     }
 
+    /**
+     * @return object \Model\Leads\Site
+     */
     static function getByGuid($guid) {
         $Repository = new \Library\Repository\Leads\Site();
         
-        $Content = $Repository->getByGuid($guid);
-        $Record = $Content->getOne();
+        $DataRecord = $Repository->getByGuid($guid);
+        $ModelRecord = $DataRecord->getOne();
         
-        return $Record;
+        return $ModelRecord;
     }
     
+    
+    /**
+     * @return object \Model\Leads\Site
+     */
+    static function getByName($name, $operator='LOWER') {
+        $Repository = new \Library\Repository\Leads\Site();
+        
+        $DataRecord = $Repository->getByName($name, $operator='LOWER');
+        $ModelRecord = $DataRecord->getOne();
+        
+        return $ModelRecord;
+    }
     
     /**
      * returns multiple
@@ -48,4 +66,49 @@ class Site extends \Library\Logic\LogicAbstract
         return $Repository->getSitesByAccountUserId($user_id);
     }    
     
+    /**
+     * try to generate new slug
+     * @param string $name
+     * @param string $state
+     * @param string $city
+     * @param string $category
+     * @return string 
+     */
+    static public function getNewSlug($name, $state, $city, $category) {
+        // option 1 
+        $names = explode(' ', $name);
+        $name1 = $names[0];
+        $slug = null;
+        
+        $options = array(
+                trim(strtolower($city)) . trim(substr(strtolower($state), 0, 2)) . '/' . trim($category),
+                trim(strtolower($name1)) . trim(substr(strtolower($state), 0, 2)) . '/' . trim($category),
+                trim(strtolower($name1))  . '/' . trim($category),
+            );
+        
+        foreach ($options as $test_slug) {
+            $Site = self::getBySlug($test_slug);
+            if (empty($Site->id)) {
+                $slug = $test_slug;
+                break;
+            }
+        }
+        
+        if (!empty($slug)) {
+            return $slug;
+        }
+        
+        // option 2 generate with numbers
+        for ($i=0; $i < 100; $i++) {
+            $test_slug = trim(strtolower($city)) . '_' . $i . trim(substr(strtolower($state), 0, 2)) . '/' . trim($category);
+            $Site = self::getBySlug($test_slug);
+            if (empty($Site->id)) {
+                $slug = $test_slug;
+                break;
+            }            
+        }
+        
+        return $slug;
+        
+    }
 }

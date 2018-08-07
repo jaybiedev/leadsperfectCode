@@ -17,11 +17,12 @@ class DashboardController extends \Controllers\ControllersAbstract{
         die('Default method');
     }
     
-    protected function utilAction() {
+    protected function uploadSitesAction() {
         $ActiveAccount = $this->SessionManager->get('ActiveAccount');
         
         $file = WEB_PATH . "/uploads/gcimicro.zip"; 
-        \Library\Logic\Leads\UploadSite::uploadZip($ActiveAccount, $file);    
+        $result = \Library\Logic\Leads\UploadSite::uploadZip($ActiveAccount, $file);
+        var_dump($result);
     }
     
     protected function passwordAction() {
@@ -31,7 +32,6 @@ class DashboardController extends \Controllers\ControllersAbstract{
     }
     
     protected function siteAction() {
-
         // must be site admin
         $UserSites = $this->SessionManager->get('UserSites');
         if (empty($UserSites)) {             
@@ -55,8 +55,10 @@ class DashboardController extends \Controllers\ControllersAbstract{
         }
 
         $data = array();
+        $data['partial'] = '_siteadmin.tpl';
+        
         $this->Controller->View->setPageTitle("Leads Perfect");
-        $this->Controller->View->render( 'leads/dashboard/index.php', $data);
+        $this->Controller->View->render( 'leads/dashboard/index.tpl', $data);
     }
 
     protected function accountAction() {
@@ -95,9 +97,10 @@ class DashboardController extends \Controllers\ControllersAbstract{
         }        
         
         $data = array();
+        $data['partial'] = '_accountadmin.tpl';
         
         $this->Controller->View->setPageTitle("Leads Perfect");
-        $this->Controller->View->render( 'leads/dashboard/index.php', $data);
+        $this->Controller->View->render( 'leads/dashboard/index.tpl', $data);
     }
     
     // slow but ok since there's not a lot of sites
@@ -116,21 +119,22 @@ class DashboardController extends \Controllers\ControllersAbstract{
         unset($site_properties['table']);
         unset($site_properties['account_id']);
         unset($site_properties['id']);
+        unset($site_properties['is_cached']);
         
         $columns = array('guid', 'slug', 'user_email');
         $columns = array_unique(array_merge($columns, array_keys($site_properties)));
 
         foreach ($ContentTags as $Tag) {
-            if ($Tag->isCustomField() == false) 
+            // if ($Tag->isCustomField() == false) 
+            //    continue;
+            // $field = $Tag->getFieldName();
+
+            if (in_array($Tag->tag, $columns))
                 continue;
             
-            $field = $Tag->getFieldName();
-            if (in_array($field, $columns))
-                continue;
-            
-            array_push($columns, $field);                
+            array_push($columns, $Tag->tag);                
         }
-        
+
         # Start the ouput
         header("Content-Type: text/csv");
         header("Content-Disposition: attachment; filename=sites.csv");

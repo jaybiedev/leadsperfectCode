@@ -28,7 +28,7 @@ class SiteData extends \Library\Repository\RepositoryAbstract {
                 WHERE
                   site_data.enabled
                   AND site_data.site_id = '{$site_id}'
-                  AND site_data.field='{$field}";
+                  AND site_data.field='{$field}'";
         
         return $this;
     }

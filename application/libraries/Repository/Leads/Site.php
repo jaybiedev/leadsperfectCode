@@ -17,6 +17,9 @@ class Site extends \Library\Repository\RepositoryAbstract {
         return $this;
     }
 
+    /**
+     * @return object Repository
+     */
     public function getByGuid($guid)
     {
         $this->sql = "SELECT site.*
@@ -28,6 +31,26 @@ class Site extends \Library\Repository\RepositoryAbstract {
         return $this;
     }
     
+    /**
+     * @return object Repository
+     */
+    public function getByName($name, $operator='LOWER')
+    {
+        
+        $name = trim($name);
+        $this->sql = "SELECT site.*
+                FROM
+                  site
+                WHERE
+                  site.enabled";
+        
+        if ($operator == 'LOWER') {
+            $name = trim(strtolower($name));       
+            $this->sql .= "  AND LOWER(site.name)='{$name}'";
+        }
+        
+        return $this;
+    }
     
     public function getByAccount($account_id, $orderby="") {
         $this->sql = "SELECT site.*
