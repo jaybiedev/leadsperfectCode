@@ -154,7 +154,6 @@ class UploadSite extends \Library\Logic\LogicAbstract
                     continue;
                 
                 $SiteData = \Library\Logic\Leads\SiteData::getByField($Site->id, $field)->getOne();
-                pprint_r($SiteData);
                 $SiteData = $SiteData->save(array('site_id'=>$Site->id,
                             'field'=>$field, 
                             'field_value'=>$value                    
