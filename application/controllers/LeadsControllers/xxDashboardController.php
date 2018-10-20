@@ -16,22 +16,49 @@ class DashboardController extends \Controllers\ControllersAbstract{
     {
         die('Default method');
     }
+
+    protected function utilsAction() {
+        /*
+        $user_email = 'jaybiedev@gmail.com';
+        $user_email = 'contact@pathwayofgrace.org';
+        
+        $User = \Library\Logic\User::getByEmail($user_email);
+        var_dump($User);
+        var_dump($User->isNew());
+        
+        echo "<br /><br />";
+        $AccountXrefs = $User->getUserAccountXrefs();
+        var_dump($AccountXrefs);
+        
+        echo "<br /><br />";
+        $SiteXrefs = $User->getUserSiteXrefs();
+        var_dump($SiteXrefs);
+        
+        echo "<br /><br />";       
+        var_dump($User->getUserAccountXref(2));
+
+        echo "<br /><br />";
+        var_dump($User->getUserSiteXref(2));
+        */
+        
+    }
     
-    protected function utilAction() {
+    protected function uploadSitesAction() {
         $ActiveAccount = $this->SessionManager->get('ActiveAccount');
         
         $file = WEB_PATH . "/uploads/gcimicro.zip"; 
-        \Library\Logic\Leads\UploadSite::uploadZip($ActiveAccount, $file);    
+        $result = \Library\Logic\Leads\UploadSite::uploadZip($ActiveAccount, $file);
+        var_dump($result);
     }
     
     protected function passwordAction() {
+        var_dump($this->Controller->Helper->getSecurity()->hashPassword('changeme'));  
         var_dump($this->resource_id);
         echo $this->Controller->Helper->getSecurity()->hashPassword($this->resource_id);
         exit;
     }
     
     protected function siteAction() {
-
         // must be site admin
         $UserSites = $this->SessionManager->get('UserSites');
         if (empty($UserSites)) {             
@@ -49,15 +76,25 @@ class DashboardController extends \Controllers\ControllersAbstract{
         }
         
         $site_guid = $this->resource_id;
-        
-        if (!in_array($site_guid, array_keys($UserSites))) {
-            die("Site not found or user has not access to this site.");
+        if (empty($site_guid)) {
+            // fallback. probably went through here with no guid.  take the first site.
+            $Site = reset($UserSites);
+            redirect(WEB_URL . "/dashboard/site/{$Site->guid}");
+            exit;
         }
 
-        $data = array();
-        $this->Controller->View->setPageTitle("Leads Perfect");
-        $this->Controller->View->render( 'leads/dashboard/index.php', $data);
+        if (!in_array($site_guid, array_keys($UserSites))) {
+            die("Site not found or user has no access to this site.");
+        }
+
+        $data = array();        
+        $data['dashboard'] = 'site';
+        $data['partial'] = 'site/index.tpl';
+        
+        $this->Controller->View->setPageTitle(COMPANY_NAME);
+        $this->Controller->View->render( 'leads/dashboard/index.tpl', $data);
     }
+   
 
     protected function accountAction() {
         
@@ -71,6 +108,11 @@ class DashboardController extends \Controllers\ControllersAbstract{
             $Accounts = \Library\Logic\Account::getAccountsByUserId($User->id);            
             $this->SessionManager->put('UserAccounts', $Accounts->getArray('guid'));
             $UserAccounts = $this->SessionManager->get('UserAccounts');
+        }
+
+        // user has not access to main accounts
+        if (empty($UserAccounts)) {
+            return $this->siteAction();
         }
         
         $account_guid = $this->resource_id;
@@ -91,13 +133,14 @@ class DashboardController extends \Controllers\ControllersAbstract{
         }
         
         if (!in_array($account_guid, array_keys($UserAccounts))) {
-            die("Account not found or user has not access to this account.");
+            die("Account not found or user has no access to this account.");
         }        
         
         $data = array();
+        $data['partial'] = '_accountadmin.tpl';
         
         $this->Controller->View->setPageTitle("Leads Perfect");
-        $this->Controller->View->render( 'leads/dashboard/index.php', $data);
+        $this->Controller->View->render( 'leads/dashboard/index.tpl', $data);
     }
     
     // slow but ok since there's not a lot of sites
@@ -116,21 +159,22 @@ class DashboardController extends \Controllers\ControllersAbstract{
         unset($site_properties['table']);
         unset($site_properties['account_id']);
         unset($site_properties['id']);
+        unset($site_properties['is_cached']);
         
         $columns = array('guid', 'slug', 'user_email');
         $columns = array_unique(array_merge($columns, array_keys($site_properties)));
 
         foreach ($ContentTags as $Tag) {
-            if ($Tag->isCustomField() == false) 
+            // if ($Tag->isCustomField() == false) 
+            //    continue;
+            // $field = $Tag->getFieldName();
+
+            if (in_array($Tag->tag, $columns))
                 continue;
             
-            $field = $Tag->getFieldName();
-            if (in_array($field, $columns))
-                continue;
-            
-            array_push($columns, $field);                
+            array_push($columns, $Tag->tag);                
         }
-        
+
         # Start the ouput
         header("Content-Type: text/csv");
         header("Content-Disposition: attachment; filename=sites.csv");
@@ -170,22 +214,5 @@ class DashboardController extends \Controllers\ControllersAbstract{
         fclose($output);
     }
     
-    protected function getDashboardInitAjaxAction() {
-        $User = $this->UserSecurity->getUser();
-        
-        $ActiveAccount = $this->SessionManager->get('ActiveAccount');
-        
-        $Template = \Library\Logic\Leads\Template::get($ActiveAccount->template_id);
-        
-        $ContentTags = \Library\Logic\Leads\ContentTag::getByTemplateId ($ActiveAccount->template_id);
-   
-        $data = array('User'=>$User,
-            'Account'=>$ActiveAccount,
-            'Template'=>$Template, 
-            'ContentTags' => $ContentTags->getArray('id'),
-        );
-        
-        return $this->renderJson($data);
-    }
     
 }

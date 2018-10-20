@@ -46,7 +46,7 @@ if (false == function_exists('guid4')) {
     /**
      * Returns a GUIDv4 string
      *
-     * Uses the best cryptographically secure method
+     * Uses Cryptographically secure method
      * for all supported pltforms with fallback to an older,
      * less secure version.
      *

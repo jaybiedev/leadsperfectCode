@@ -33,6 +33,18 @@ $config = parse_ini_file($config_file, true);
 
 $config['base_url'] = WEB_URL;
 
+foreach ($config['other'] as $key=>$value) {
+    $const = strtoupper($key);
+    
+    if ($const == 'BASE_URL')
+        continue;
+    
+    if (defined($const))
+        continue;
+    
+    define($const, $value);           
+}
+
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -411,8 +423,10 @@ $config['sess_regenerate_destroy'] = FALSE;
 |       'cookie_httponly') will also affect sessions.
 |
 */
+
+$cookie_domain = parse_url(WEB_URL, PHP_URL_HOST);
 $config['cookie_prefix']	= '';
-$config['cookie_domain']	= 'servicecentre.savvylogics.com';
+$config['cookie_domain']	= $cookie_domain;
 $config['cookie_path']		= '/sessions';
 $config['cookie_secure']	= FALSE;
 $config['cookie_httponly'] 	= FALSE;

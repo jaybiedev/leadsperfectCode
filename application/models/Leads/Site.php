@@ -24,6 +24,8 @@ class Site extends \Model\AbstractModel {
     public $city;
     public $state;
     public $zip;
+    public $country;
+    public $template_id;
     public $guid;
     public $logo;
     public $is_cached;
@@ -74,5 +76,12 @@ class Site extends \Model\AbstractModel {
     public function getId()
     {
         return $this->id;
+    }
+    
+    public function getUrl() {
+        if (!empty($this->vanity_url))
+            return $this->vanity_url;
+        
+         return WEB_URL . '/' . $this->slug;
     }
 }

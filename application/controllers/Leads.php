@@ -9,15 +9,28 @@ class Leads extends Library\MainController {
     public function index()
     {
         //$segments = $this->uri->segment_array();
-        $data = array();
-        $this->View->setPageTitle("Leads Perfect");
-        $this->View->render( 'leads/frontend/index.tpl', $data);
+        $states = array(''=>'Any');
+        $states = array_merge($states, Helper\Utils::getUSStates());
+        $ip = $_SERVER['REMOTE_ADDR'];
+        
+        $Sites = \Library\Logic\Leads\Site::getByAccount(2, $orderby="country, state, city, zip");
+        $UserGeolocation = Helper\Utils::getGeoLocation($ip);
+        $data = array(
+            'countries'=>array('US'=>'United States'),
+            'states'=> $states,
+            'UserGeolocation'=>$UserGeolocation,
+            'Sites'=>$Sites->getArray(),
+        );
+        
+        $this->View->setPageTitle(COMPANY_NAME);
 
+        $this->View->render( HOME_PAGE_TEMPLATE, $data);
     }
 
     /**
      * catch request and pass to leads/Dashboard
      */
+    /*
     public function dashboard()
     {
         if ($this->Helper->getSecurity()->isLogged() == false) {
@@ -34,7 +47,13 @@ class Leads extends Library\MainController {
         $this->View->render( 'leads/dashboard/index.php', $data);
     }
     
-    public function webservice() {
+    public function microservices() {
+        if ($this->Helper->getSecurity()->isLogged() == false) {
+            redirect($this->Helper->getUrl()->getLoginUrl());
+        }
+        
+        return new Controllers\Leads\MicroservicesController($this);
+        
         // factory
         
         $Email = new \Library\Logic\Email();
@@ -58,7 +77,7 @@ class Leads extends Library\MainController {
             echo "Sent...";
         }
     }
-    
+    */
     /**
      * Website request using slug
      */
@@ -71,7 +90,7 @@ class Leads extends Library\MainController {
         $Site = $SiteRepository->getBySlug($slug)->getOne();
         
         if (empty($Site->id) || get_boolean_value($Site->enabled) == false) {
-            die ('404 - Site not found.');
+            die ('404 - Site not found. ' . $slug);
         }
         
         $AccountRepository = new \Library\Repository\Account();

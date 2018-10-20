@@ -17,6 +17,8 @@ class SiteData extends \Model\AbstractModel {
     public $field;
     public $field_value;
     public $enabled;
+    
+    public $content_tag_name;
 
     public function setId($id)
     {

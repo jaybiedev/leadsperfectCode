@@ -1,0 +1,24 @@
+<form name="profile-update-form">        
+	<md-input-container class="md-block">
+      <label>Email Address</label>
+      <input type="email" ng-model="Data.User.email">
+    </md-input-container>
+	<md-input-container class="md-block">
+      <label>First Name</label>
+      <input ng-model="Data.User.first_name">
+    </md-input-container>
+	<md-input-container class="md-block">
+      <label>Last Name</label>
+      <input ng-model="Data.User.last_name">
+    </md-input-container>    
+    <md-input-container class="md-block">
+      <label>Password (Leave blank if not changing)</label>
+      <input ng-model="Data.User.password" type="password">
+    </md-input-container>
+	<md-input-container class="md-block">
+      <label>Confirm Password  (Leave blank if not changing)</label>
+      <input ng-model="Data.User.password_confirm" type="password">
+    </md-input-container>
+      <br />
+    <md-button type="submit"  class="md-primary" ng-click="save()">Submit</md-button>
+</form>

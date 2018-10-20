@@ -49,6 +49,13 @@ class UserSecurity {
         $Record = $q->row();
         return ($Record->sessionid == $User->sessionid);
     }
+    
+    public function setUser($User) {
+        unset($User->password);
+        $this->SessionManager->put('User', $User);
+        $this->User = null;
+        return $this->getUser();
+    }
 
     public function getUser() {
         if (empty($this->User) || empty($this->User->id)) {

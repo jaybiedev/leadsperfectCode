@@ -5,12 +5,20 @@ use LogicAbstract;
 
 class User extends \Library\Logic\LogicAbstract
 {
-    static public function get($id=null)
+    static public function get($id)
     {
         $Repository = new \Library\Repository\User();
 
-        return $Repository->get($id);
+        return $Repository->get($id)->getOne();
     }
+
+    static public function getByEmail($email)
+    {
+        $Repository = new \Library\Repository\User();
+        
+        return $Repository->getByEmail($email)->getOne();;
+    }
+    
 
     static public function update($meta=array())
     {
@@ -23,8 +31,9 @@ class User extends \Library\Logic\LogicAbstract
         $DataObject = new \Library\DataObject($User);
         $DataObject->save($meta);
 
-        return $DataObject->getId();
-
+        $User->load($DataObject->getMeta());
+        
+        return $User;
     }
 
 }

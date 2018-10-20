@@ -1,0 +1,66 @@
+body {
+	font-family: font-family: 'Lato', sans-serif;
+}
+#header-dashboard {
+    height:60px;
+}
+.theme-color {
+    color: #efefef;
+}
+
+.theme-background-color,
+button.md-primary {
+   background-color: rgb(40,53,147); 
+}
+button.md-primary.md-button {
+	color : #efefef;
+}
+button.md-primary.md-button:hover {
+	color:rgb(40,53,147);
+}
+
+.dashboard-body .site-template iframe {
+	width: 1280px;
+    height: 2000;
+    -ms-transform: scale(0.65);
+    -moz-transform: scale(0.65);
+    -o-transform: scale(0.65);
+    -webkit-transform: scale(0.65);
+    transform: scale(0.65);
+    
+    -ms-transform-origin: 0 0;
+    -moz-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+}
+
+.dashboard-card.chart {
+	min-height: 350px;
+}
+
+.messages {
+	width: 100%;
+	padding: 5px;
+	border-radius: 0.25em;
+	line-height: 2em;
+}
+.messages .message {
+	padding-left: 2em;
+}
+.messages.message-error {
+	border: 1px solid red;
+	color: red;
+}
+.messages.message-warning {
+	border: 1px solid yellow;
+	color: yellow;
+}
+.messages.message-success {
+	border: 1px solid green;
+	color: green;
+}
+.messages .close-x {
+	float: right;
+	cursor: pointer;
+}

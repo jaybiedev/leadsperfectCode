@@ -12,6 +12,7 @@ abstract class RepositoryAbstract  {
 
     protected $CI;
     protected $db;
+    protected $bindings = array();
 
     private $query; // db query resource
 
@@ -21,6 +22,22 @@ abstract class RepositoryAbstract  {
         $this->db = $this->CI->db;
     }
 
+    /**
+     * escaping example:
+     * $query = 'SELECT * FROM subscribers_tbl WHERE user_name='.$this->db->escape($email); 
+     * 
+     * bindings example:
+     * 
+     * $this->db->get_where('subscribers_tbl',array('status' => 'active','email' => 'info@arjun.net.in'));
+     *
+     * $sql = "SELECT * FROM subscribers_tbl WHERE status = ? AND email= ?"; 
+     * $this->db->query($sql, array('active', 'info@arjun.net.in'));
+     * 
+     * handling likes
+     * $search = '20% raise';
+     * $sql = "SELECT id FROM table WHERE column LIKE '%" .
+     * $this->db->escape_like_str($search)."%' ESCAPE '!'";
+     */
     private function getQuery() {
 
         if ($this->offset)
@@ -29,7 +46,11 @@ abstract class RepositoryAbstract  {
         if ($this->limit)
             $this->sql .= "\n LIMIT {$this->limit}";
 
-        $this->query = $this->db->query($this->sql);
+        $this->query = $this->db->query($this->sql, $this->bindings);
+        
+        if (!$this->query) {
+            throw new Exception($this->db->error());
+        }
         return $this->query;
     }
 

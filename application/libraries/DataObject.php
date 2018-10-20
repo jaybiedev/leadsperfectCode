@@ -105,8 +105,15 @@ class DataObject {
         return $this->Model;
 
     }
+    
+    public function getMeta() {
+        return $this->get_object_public_vars($this->Model);
+    }
 
-
+    private function get_object_public_vars($object) {
+        return get_object_vars($object);
+    }
+    
     /**
      * @return record Id primary key
      */
@@ -114,8 +121,6 @@ class DataObject {
     {
         $this->Model->getId();
     }
-
-
 
     public function delete()
     {

@@ -11,7 +11,7 @@ class User extends \Library\Repository\RepositoryAbstract {
 
         $this->sql = "SELECT * 
                 FROM 
-                  users
+                  user
                 WHERE 1=1 ";
 
         if (!empty($id)) {
@@ -23,4 +23,33 @@ class User extends \Library\Repository\RepositoryAbstract {
 
         return $this;
     }
+    
+    public function getByEmail($email)
+    {
+        $email = strtolower($email);
+        $this->sql = "SELECT *
+                FROM
+                  user
+                WHERE email=?";
+        
+        $this->bindings = array($email);
+        return $this;
+    }
+    
+    public function getAll($where=array(), $orderby=null)
+    {        
+        $this->sql = "SELECT *
+                FROM
+                  user
+                WHERE enabled";
+        
+        if (empty($orderby)) {
+            $orderby = " ORDER BY LOWER(last_name), LOWER(first_name)";
+        }
+        
+        $this->sql .= $orderby;
+        
+        return $this;
+    }
+    
 }

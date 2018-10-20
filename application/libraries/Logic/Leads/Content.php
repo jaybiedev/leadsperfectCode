@@ -51,7 +51,7 @@ class Content extends \Library\Logic\LogicAbstract
         foreach ($SiteData as $field=>$Data) {
             $site_data_meta[$field] = $Data->field_value;
         }
-        
+
         // merge all meta information
         $site_meta = $Site->getMeta();
         $account_meta = $Account->getMeta();

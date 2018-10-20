@@ -1,19 +1,11 @@
 <html lang = "en">
    <head>
+   <title>Dashboard</title>
    	<meta name="viewport" content="width=device-width, initial-scale=1">
-      <link href="/css/dashboard.css" rel="stylesheet">
+      <link href="/assets/css/leads/dashboard.css" rel="stylesheet">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css" rel="stylesheet" >
- 
-      <style>
-        md-card md-card-title+md-card-content {
-            padding-top: 16px;
-        }
-        
-        md-card .md-menu {
-            padding-top:0;
-        }
-      </style>
+ 		<link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
    </head>
    
    <body ng-app="DashboardApplication" ng-controller="DashboardCtrl as ctrl" ng-cloak> 
@@ -40,43 +32,28 @@
               </md-item>
               <md-divider></md-divider>
               
-              <!-- 
-              <md-subheader>Management</md-subheader>
-              <md-item>
-                <a>
-                  <md-item-content md-ink-ripple layout="row" layout-align="start center">
-                    <div class="inset">
-                      <ng-md-icon icon="group"></ng-md-icon>
-                    </div>
-                    <div class="inset">Group
-                    </div>
-                  </md-item-content>
-                </a>
-              </md-item>
-               -->
             </md-list>            
             <!--  end of items -->
          </md-sidenav>
          
-         <md-content class="theme-color">           
+         <md-content class="theme-background-color theme-color">           
             <md-button ng-click = "openLeftMenu()">
             	<i class="material-icons md-36">menu</i></md-button>
-            	<span style="font-size:22px;font-weight:bold;">Leads Perfect</span>
+            	<span style="font-size:22px;font-weight:bold;">[[$View->page_title]]</span>
          </md-content>
          
       </div>
       
       <!--  body -->
-      <div>
-	   	<div layout="row" layout-xs="column">
-	   		<div layout="column" flex-50>
-	  			<div flex><?php include_once("_template.php");?></div>
-  				<div flex>
-  					<!--<div file-upload></div> -->            	
-           			<site-list></site-list>   
-  				</div>
-	  		</div>  			
-			<div flex-10><?php include_once("_stats.php");?></div>
+      <div class="dashboard-body">
+	   	<div layout="row" layout-xs="column" style="padding: 0 40px; width:100%;margin-top:2em;">
+	      	<div id="page_heading">[[*$page_heading*]]</div>      
+	        <div class="message-error messages" ng-if="Data.Messages.error"><i class="material-icons error">error</i><span class="message">{{Data.Messages.error}}</span><i class="material-icons close-x pull-right" ng-click="clearMessage('error')">close</i></div>
+	        <div class="message-warning messages" ng-if="Data.Messages.warning"><i class="material-icons warning">warning</i><span class="message">{{Data.Messages.warning}}</span><i class="material-icons close-x pull-right" ng-click="clearMessage('warning')">close</i></div>
+	        <div class="message-success messages" ng-if="Data.Messages.success"><i class="material-icons success">done</i><span class="message">{{Data.Messages.success}}</span><i class="material-icons close-x pull-right" ng-click="clearMessage('success')">close</i></div>
+		</div>
+	   	<div layout="row" layout-xs="column" style="padding: 20px 40px; width:100%;">
+   			[[include file="./$partial"]]
 		</div>
       </div>
 
@@ -89,10 +66,11 @@
       <script src = "/assets/js/charts.min.js"></script>
       <script src = "/assets/js/angular-chart.min.js"></script>
 
-      <script src = "/assets/js/leads/dashboard.app.js"></script>
-      <script src = "/assets/js/leads/dashboard.controller.js"></script>
-      <script src = "/assets/js/leads/dashboard.directives.js"></script>
-      <script src = "/assets/js/leads/dashboard.helper.js"></script>
+      <script src = "/assets/js/leads//dashboard.[[$dashboard]].app.js"></script>
+      <script src = "/assets/js/leads/dashboard.[[$dashboard]].controller.js"></script>
+      <script src = "/assets/js/leads//dashboard.[[$dashboard]].directives.js"></script>
+      <script src = "/assets/js/leads//dashboard.directives.js"></script>
+      <script src = "/assets/js/leads//dashboard.helper.js"></script>
       
    </body>
 </html>

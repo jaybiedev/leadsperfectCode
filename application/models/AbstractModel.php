@@ -34,12 +34,30 @@ abstract class AbstractModel {
         }
     }
     
-    function getMeta() {
-        return get_object_vars($this);
+    public function isNew() {
+        return empty($this->id);
     }
     
-    function save($meta) {
+    public function getMeta() {
+        return $this->get_object_public_vars();
+    }
+
+    
+    public function save($meta) {
         $DataObject = new \Library\DataObject($this);
-        $DataObject->save($meta);
+        $result = $DataObject->save($meta);
+
+        return $this;
+    }
+    
+    public function saveModel() {
+        $meta = $this->getMeta();
+        $DataObject = new \Library\DataObject($this);
+        $result = $DataObject->save($meta);
+        return $this;
+    }
+    
+    private function get_object_public_vars() {
+        return get_object_vars($this);
     }
 }
