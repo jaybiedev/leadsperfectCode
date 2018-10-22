@@ -65,7 +65,7 @@ class Content extends \Library\Logic\LogicAbstract
                 $website_meta[$Tag->tag] = $Tag->default_value;
             }
             
-            if ($Tag->tag_system_name == 'IMAGE') {
+            if ($Tag->tag_system_name == 'IMAGE' &&  !empty($website_meta[$Tag->tag])) {
                 if ($is_default) {
                     $website_meta[$Tag->tag] = "/uploads/" . $Account->guid . "/" . $website_meta[$Tag->tag];
                 }
