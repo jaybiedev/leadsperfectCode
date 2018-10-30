@@ -117,5 +117,25 @@ abstract class RepositoryAbstract  {
 
         return $records;
     }
+    
+    /**
+     * @todo: need to use prepare statements
+     */
+    function getWhereClause($where) {
+        
+        $where_clause = null;
+        if (empty($where))
+            return $where_clause;
+        
+        foreach ($where as $wh) {
+            $field = $wh['field'];
+            $operator = $wh['operator'];
+            $value = $wh['value'];
+            
+            $where_clause .= " AND {$field} {$operator} '{$value}'";
+        }
+            
+        return $where_clause;
+    }
 
 }

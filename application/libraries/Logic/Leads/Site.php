@@ -46,10 +46,10 @@ class Site extends \Library\Logic\LogicAbstract
     /**
      * returns multiple
      */
-    static function getByAccount($account_id, $orderby=null) {
+    static function getByAccount($account_id, $where=ull, $orderby=null) {
         $Repository = new \Library\Repository\Leads\Site();
         
-        return $Repository->getByAccount($account_id, $orderby);
+        return $Repository->getByAccount($account_id, $where, $orderby);
     }
     
     /**

@@ -26,12 +26,15 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/uploads/9c1db3c9-67ae-4948-8ab7-e4e44634d43d/favicon-16x16.png">    
     <!-- Custom styles for this template -->
     <link href="/uploads/9c1db3c9-67ae-4948-8ab7-e4e44634d43d/main.css" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   
     <!-- Custom styles for this template -->
     <style>
         body {
             padding-top: 54px;
+        }
+        a {
+        	color: #d3ab39;
         }
         #global-search-box  {
         	border: 1px solid #ccc;
@@ -52,21 +55,40 @@
         #global-search-box button:hover {
 		}
 		
-		.active-country {
-        	background-color: #d3ab39;
-        	color: #fff;
+		.church-list {
+			padding: 20px;
 		}
-		.active-state {
-        	border-color: #d3ab39;
+		.church-list .state {
+			padding-top: 15px;
+			padding-bottom: 15px;
 		}
 		
+		.church-list .item {
+			padding-top: 10px;
+			padding-bottom: 10px;
+			display:inline-block;
+		}
+		
+		.church-list .card {
+			padding: 12px;
+		}
         @media (min-width: 992px) {
             body {
                 padding-top: 56px;
             }
         }
+        
+        .pointer {
+        	cursor:pointer;
+        }
     </style>
-
+	<script>
+		var Tools = {
+			gotoMap : function (address) {
+				window.open("https://www.google.com/maps/place/" + address + "/data=!3m1!4b1", "map");
+			}
+		}
+	</script>
 </head>
 
 <body>
@@ -112,43 +134,67 @@
 			</div>
 			        	
             <div class="col-lg-6 col-md-8 col-sm-12 text-center" style="margin-left:auto;margin-right:auto;">            
+	            <form method="GET" action="">
 	            <div class="input-group" id="global-search-box">
-	            	<input type="text" class="form-control" aria-label="Church search keyword" name="keyword" placeholder="Search Name or keyword">
+	            	<input type="text" class="form-control" aria-label="Church search keyword" name="keyword" placeholder="Search Name or keyword" value="[[$keyword]]">
 	  				<div class="input-group-append">
-			          [[html_options name=country options=$countries selected=$UserGeolocation->country_code]]
-			          [[html_options name=state options=$states selected=$UserGeolocation->region_code]]
-					    <button class="btn btn-outline-secondary" type="button">Search</button>
+			          [[html_options name=country_code options=$countries selected=$country_code]]
+			          [[html_options name=region_code options=$states selected=$region_code]]
+					    <button class="btn btn-outline-secondary" type="submit">Search</button>
 				  	</div>
 				</div>
+				</form>
             </div>
         </div>
     </div>
-    <div class="row" style="margin-left:auto;margin-right:auto;width: 80%;margin-top:5rem;">
-    	<ul class="list-group">
+    <div class="church-list">
   			[[assign var="state" value=""]]
   			[[assign var="country" value=""]]
     		[[foreach from=$Sites item=$Site]]
     			[[if $Site->country != $country]]
-					<li class="list-group-item active-country">[[$Site->country]]</li>
+    				[[if $country neq '' ]]
+    					</div>
+    				[[/if]]
+					<h1 style="text-align:center; margin: 20px;">[[$Site->country]]</h1>
 		  			[[assign var="country" value=$Site->country|upper]]
+			    	<div class="card-columns">
     			[[/if]]
     			[[if $Site->state|upper != $state]]
-					<li class="list-group-item active-state">[[$Site->state]]</li>
+					<h4 class='state'>[[$Site->state]]</h4>
 		  			[[assign var="state" value=$Site->state|upper]]
     			[[/if]]
-				<li class="list-group-item">
-					<a href="[[$Site->getUrl()]]" target="_localchurch">[[$Site->name]]</a>
-					<br>
+				<div class="card-x">
+					<div class="card-body-x item">
+					<h5 class="card-title-x"><a href="[[$Site->getUrl()]]" target="_localchurch">[[$Site->name]]</a></h5>
+					[[if $Site->pastor|trim neq '']]							
+						<h5>[[$Site->pastor]]</h5>
+						<br />
+					[[/if]]
 					<small class="info-address">
+						<i class="material-icons pointer" onClick="Tools.gotoMap('[[$Site->getFullAddress(1, 1)]]')"">add_location</i>
+						[[if $Site->phone|trim neq '']]							
+							<a href="tel:[[$Site->phone]]">[[$Site->phone]]</a>
+							<br />
+						[[/if]]
+						[[if $Site->email|trim neq '']]							
+							<a href="mailto:[[$Site->email]]">[[$Site->email]]</a>
+							<br />
+						[[/if]]
 						[[if $Site->address1|trim neq '']]
 							[[$Site->address1]]
 							<br />
 						[[/if]]
+						[[if $Site->address2|trim neq '']]
+							[[$Site->address2]]
+							<br />
+						[[/if]]
 						[[$Site->city]]  [[$Site->state]] [[$Site->zip]] [[$Site->country]]
 					</small>
-				</li>
+					</div>
+				</div>
   	    	[[/foreach]]
-		</ul>
+  	    	</div>
+		</div>
     </div>
 </div>
 

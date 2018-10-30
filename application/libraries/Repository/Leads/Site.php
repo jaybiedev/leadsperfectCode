@@ -52,7 +52,7 @@ class Site extends \Library\Repository\RepositoryAbstract {
         return $this;
     }
     
-    public function getByAccount($account_id, $orderby="") {
+    public function getByAccount($account_id,  $where=null, $orderby="") {
         $this->sql = "SELECT site.*
                 FROM
                   site
@@ -60,11 +60,16 @@ class Site extends \Library\Repository\RepositoryAbstract {
                   site.enabled
                   AND site.account_id = " . intval($account_id);
         
+        if (!empty($where)) {
+            $where_clause = $this->getWhereClause($where);
+            $this->sql .= $where_clause;
+        }
+        
         if (empty($orderby))
             $this->sql .= " ORDER BY name ";
         else
             $this->sql .= " ORDER BY {$orderby} ";
-            
+         
         return $this;
     }
     

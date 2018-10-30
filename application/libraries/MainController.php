@@ -38,6 +38,15 @@ class MainController extends  \CI_Controller {
         return $this->input->post($name);
     }
 
+    public function getParam($name) {
+        return $this->inputRequest($name);
+    }
+
+    public function getRequest($name) {
+        return $this->inputRequest($name);
+    }
+    
+    
     public function inputRequest($name) {
         return $this->input->post_get($name, true);
     }

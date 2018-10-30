@@ -13,13 +13,45 @@ class Leads extends Library\MainController {
         $states = array_merge($states, Helper\Utils::getUSStates());
         $ip = $_SERVER['REMOTE_ADDR'];
         
-        $Sites = \Library\Logic\Leads\Site::getByAccount(2, $orderby="country, state, city, zip");
+        $where = array();
+        $country_code = null;
+        $region_code = null;
+
+        $keyword = $this->getParam('keyword');
+        $country_code = $this->getParam('country_code');
+        $region_code = $this->getParam('region_code');
+
+        if (!empty($country_code)) {
+            $where[] = array('field'=>'country', 'operator'=>'=', 'value'=>trim($country_code));
+        }
+        
+        if (!empty($region_code)) {
+            $where[] = array('field'=>'state', 'operator'=>'=', 'value'=>trim($region_code));
+        }
+        
+        if (!empty($keyword)) {
+           $where[] = array('field'=>'name', 'operator'=>'like', 'value'=>'%' . trim($keyword) . '%');
+        }
+        
+        
+        $Sites = \Library\Logic\Leads\Site::getByAccount(2, $where, $orderby="country, state, city, zip");
         $UserGeolocation = Helper\Utils::getGeoLocation($ip);
+        
+        if (!isset($_REQUEST['country'])) {
+            $country_code = $UserGeolocation->country_code;
+        }
+        if (!isset($_REQUEST['region_code'])) {
+            $region_code = $UserGeolocation->region_code;
+        }
+        
         $data = array(
             'countries'=>array('US'=>'United States'),
             'states'=> $states,
             'UserGeolocation'=>$UserGeolocation,
             'Sites'=>$Sites->getArray(),
+            'region_code' => $region_code,
+            'country_code'=>$country_code,
+            'keyword'=>$keyword,
         );
         
         $this->View->setPageTitle(COMPANY_NAME);

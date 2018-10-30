@@ -84,4 +84,21 @@ class Site extends \Model\AbstractModel {
         
          return WEB_URL . '/' . $this->slug;
     }
+    
+    public function getFullAddress($mappable=false, $encode=false) {
+        $full = '';
+        
+        if (intval($this->address1)) {
+            $full = $this->address1 . ' ';
+        }
+        
+        $full .= $this->address2 . ' ' . 
+            $this->city . ' ' . $this->state . ' ' . 
+            $this->zip . ' ' . $this->country;
+        
+        if ($encode) {
+            $full = urlencode($full);
+        }
+        return $full;    
+    }
 }

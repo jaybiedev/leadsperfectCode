@@ -21,7 +21,7 @@ class AccountSitesDD extends \Library\Widgets\WidgetsAbstract {
     public function getContent() {
 
         $SiteRepository = new \Library\Repository\Leads\Site();
-        $Sites = $SiteRepository->getByAccount($this->Account->id, $orderby="UPPER(state), UPPER(city)")->getArray();
+        $Sites = $SiteRepository->getByAccount($this->Account->id, null, $orderby="UPPER(state), UPPER(city)")->getArray();
         
         $content =<<<JS
 <script>

@@ -41,7 +41,9 @@ class UploadSite extends \Library\Logic\LogicAbstract
         $ContentTags = $ContentTagRepository->getByTemplateId($Account->template_id)->getArray('tag');
         
         $result = array('success'=>array(), 'failed'=>array());        
-        $header = fgetcsv($handle);        
+        $header = fgetcsv($handle);       
+        $header = array_map('strtolower', $header);
+        
         $row = 0;
         while (($data = fgetcsv($handle)) !== FALSE) 
         {
@@ -75,23 +77,26 @@ class UploadSite extends \Library\Logic\LogicAbstract
                 $result['failed'][] = new \Model\Error(array(
                     'code'=> '0',
                     'message'=> 'Row ' . $row . ' Slug already exists ' . $meta['name'],
-                ));
-                
+                ));                
                 continue;
             }            
             
             // validate slug
-            if (empty($meta['slug']) && empty($Site->id)) {
+            if (empty($Site->id)) {
                 // new site entry
                 $Site = new \Model\Leads\Site();
                 $meta['account_id'] = $Account->id;
                 $meta['template_id'] = $Account->template_id;
-                $meta['slug'] =  \Library\Logic\Leads\Site::getNewSlug($meta['name'], $meta['state'], $meta['city'], $category='church');
                 $meta['guid'] =  guid4();
+                
+                if (empty($meta['slug']))
+                $meta['slug'] =  \Library\Logic\Leads\Site::getNewSlug($meta['name'], $meta['state'], $meta['city'], $category='church');
             }
             
-            // just regenerate guid again it's blank
-            if (empty($meta['guid']) && !empty($Site->guid)) {
+            // hack to fix data just regenerate guid again it's blank
+            if (empty($Site->guid)) {
+                $meta['account_id'] = $Account->id;
+                $meta['template_id'] = $Account->template_id;
                 $meta['guid'] =  guid4();                
             }
             
@@ -107,14 +112,14 @@ class UploadSite extends \Library\Logic\LogicAbstract
 
             // create user
             if (!empty($meta['user_email'])) {
-                $default_password = 'changeme';
+                $default_password = 'changeMe18!';
                 $user_email = strtolower(trim($meta['user_email']));
                 
-                $User = \Logic\User::getByEmail($user_email);
+                $User = \Library\Logic\User::getByEmail($user_email);
                 
                 if ($User->isNew()) {
                     $user_meta = array();
-                    $Helper = new Helper();
+                    $Helper = new \Library\Helper();
                     $user_meta['username'] = $user_email;
                     $user_meta['username_canonical'] = $user_email;
                     $user_meta['email_canonical'] = $user_email;
@@ -129,7 +134,7 @@ class UploadSite extends \Library\Logic\LogicAbstract
                     }
                     */
 
-                    $UserSiteXref = $User->getSiteXref($Site->id);
+                    $UserSiteXref = $User->getUserSiteXref($Site->id);
                     if ($UserSiteXref->isNew()) {
                         $UserSiteXref->save(array('user_id'=>$User->id, 'site_id'=>$Site->id));
                     }                    
