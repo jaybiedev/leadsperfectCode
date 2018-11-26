@@ -59,9 +59,10 @@
 	    </md-tab>
         <md-tab label="Default Values">
         <md-content class="md-padding">
-			<form name="site-basic-info-frm">        
+			<form name="site-basic-info-frm">   
+			<h3>Leave values blank to use pre-defined information</h3>     
 			<md-input-container class="md-block"  ng-repeat="(key, field) in Data.SiteData">
-              <label>{{ field.content_tag_name }} | $site.{{ field.field }} {{key}}</label>
+              <label>{{ field.content_tag_name }} | $site.{{ field.field }}</label>
               <input ng-model="Data.SiteData[key].field_value">
             </md-input-container>
               <br />

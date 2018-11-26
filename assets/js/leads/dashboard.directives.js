@@ -17,7 +17,6 @@ app
 	        			return false;
 	        		}
 	        		
-	        		debugger;
 	        		if (typeof $scope.initMessages == 'function') {
 	        			$scope.initMessages();
 	        		}

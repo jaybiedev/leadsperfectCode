@@ -36,6 +36,8 @@ class Content extends \Library\Logic\LogicAbstract
         $ContentTagRepository = new \Library\Repository\Leads\ContentTag();        
         $Tags = $ContentTagRepository->getAll($Content->id)->getArray();
         
+//        pprint_r($Tags);die;
+        
         $SiteRepository = new \Library\Repository\Leads\Site();
         $Site = $SiteRepository->getBySlug($slug)->getOne();
 
@@ -78,8 +80,17 @@ class Content extends \Library\Logic\LogicAbstract
         $View->assignTemplateVariable('Account', $Account);        
         $View->assignTemplateVariable('Site', $Site);
         $View->assignTemplateVariable('web', $website_meta);
-        $Content->content = $View->parseTemplateContent($Content->content);
         
+        $tries = 0;
+        $has_tags = true;
+        do {
+            $tries++;
+            $Content->content = $View->parseTemplateContent($Content->content);
+            // @todo: make this iterate well
+            if ($tries > 1) {
+                $has_tags = false;
+            }
+        } while ($has_tags);
         /**
          * Code below is for custom parsing
          *

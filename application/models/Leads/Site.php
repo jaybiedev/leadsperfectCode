@@ -29,6 +29,7 @@ class Site extends \Model\AbstractModel {
     public $guid;
     public $logo;
     public $is_cached;
+    public $is_external_site;
     public $enabled;
     
     private $url;
@@ -50,8 +51,8 @@ class Site extends \Model\AbstractModel {
             
             $logo_url = WEB_URL;
             if (empty($this->Account)) {
-                $Repository = new Logic\Repository\Account();
-                $Account = $Repository->get($this->account_id);    
+                $Repository = new \Library\Repository\Account();
+                $this->Account = $Repository->get($this->account_id)->getOne();    
             }
             
             if (!empty($this->logo))
@@ -65,6 +66,10 @@ class Site extends \Model\AbstractModel {
     }
     
     public function getAccount() {
+        if (empty($this->Account)) {
+            $Repository = new \Library\Repository\Account();
+            $this->Account = $Repository->get($this->account_id)->getOne();
+        }
         return $this->Account;    
     }
     

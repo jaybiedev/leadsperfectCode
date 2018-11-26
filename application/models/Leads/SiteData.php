@@ -4,7 +4,7 @@ namespace Model\Leads;
 
 /**
  * Entity-Model
- * Class Account
+ * Class SiteData
  * @package Model
  */
 
@@ -18,7 +18,10 @@ class SiteData extends \Model\AbstractModel {
     public $field_value;
     public $enabled;
     
+    // extra // supporting fields
     public $content_tag_name;
+    public $content_tag_type_id;
+    public $content_tag_system_name;
 
     public function setId($id)
     {

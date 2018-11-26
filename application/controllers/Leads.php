@@ -122,7 +122,20 @@ class Leads extends Library\MainController {
         $Site = $SiteRepository->getBySlug($slug)->getOne();
         
         if (empty($Site->id) || get_boolean_value($Site->enabled) == false) {
-            die ('404 - Site not found. ' . $slug);
+            if (strpos($slug, 'church') ===  false) {
+                $slug .= "/church";
+                header("location: /" . $slug);
+                exit;
+            }
+            
+            if (empty($Site->id) || get_boolean_value($Site->enabled) == false) {
+                header("location: ../");
+            }
+        }
+        
+        if (get_boolean_value($Site->is_external_site)) {
+            header("location:" . $Site->vanity_url);
+            exit;
         }
         
         $AccountRepository = new \Library\Repository\Account();

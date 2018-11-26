@@ -138,7 +138,7 @@ class UploadSite extends \Library\Logic\LogicAbstract
                     if ($UserSiteXref->isNew()) {
                         $UserSiteXref->save(array('user_id'=>$User->id, 'site_id'=>$Site->id));
                     }                    
-                }                
+                }
             }
             
             foreach ($ContentTags as $field=>$Tag) {

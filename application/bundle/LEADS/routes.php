@@ -25,6 +25,7 @@ function getRoutes()
     
     // $route['(:any)'] = 'leads/admin/index/$1';
     $route['(:any)/(:any)'] = 'leads/slug';
+    $route['(:any)'] = 'leads/slug';
     
     return $route;
 }

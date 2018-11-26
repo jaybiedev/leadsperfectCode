@@ -70,9 +70,117 @@ class DashboardController extends \Library\MainController {
         exit;
     }
 
+    private function settingsSaveAction() {
+        // save
+        // load Site with $site_guid = $this->_getResourceId();
+        // grab values of images, resize, write and update site_data
+        // Site->Save()
+        
+        // $User = $this->UserSecurity->getUser();        
+        // $Account = \Library\Logic\Account::getAccountsByUserId($User->id);
+        
+        $site_guid = $this->_getResourceId();
+        $UserSites = $this->SessionManager->get('UserSites');
+        if (empty($UserSites[$site_guid])) {
+            throw new \Exception("Unable to save.  Site not found.");
+        }
+        $Site = $UserSites[$site_guid];
+        $Site->name = $this->inputRequest('name');
+        $Site->slug = $this->inputRequest('slug');
+        $Site->vanity_url = $this->inputRequest('vanity_url');
+        $Site->phone = $this->inputRequest('phone');
+        $Site->email = $this->inputRequest('email');
+        $Site->address1 = $this->inputRequest('address1');
+        $Site->address2 = $this->inputRequest('address2');
+        $Site->city = $this->inputRequest('city');
+        $Site->zip = $this->inputRequest('zip');
+        $Site->country = $this->inputRequest('country');
+        $Site->state = $this->inputRequest('state');
+        $Site->saveModel();
+        
+        // save customizations
+        $SiteDataRepository = new \Library\Logic\Leads\SiteData();
+        $customization = $this->inputRequest('customization');
+
+        foreach ($customization as $field=>$value) {
+            $SiteDataModel = $SiteDataRepository->getByField($Site->id, $field)->getOne();
+            $SiteDataModel->field_value = $value;
+            $SiteDataModel->saveModel();
+        }
+        
+        // save images
+        $files_uploaded = $_FILES['customization'];
+        $upload_dir = WEB_PATH . '/uploads/' . $Site->getAccount()->guid .'/' . $Site->guid;
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0777, true);
+        }
+       
+        foreach ($files_uploaded['error'] AS $field=>$error) {
+            if ($error != 0)
+                continue;
+            
+            $filename =  strtolower(preg_replace('~[\\\\/:*?"<>|\'\s+]~', '_', basename($files_uploaded['name'][$field])));
+            $filetype =  $files_uploaded['type'][$field];
+            $filetmp_name =  $files_uploaded['tmp_name'][$field];
+            $filesize =  $files_uploaded['size'][$field];
+
+            $fileinfo = getimagesize($files_uploaded['tmp_name'][$field]);
+            $width = $fileinfo[0];
+            $height = $fileinfo[1];
+            $mime = $fileinfo['mime'];
+            
+            // @todo: resize if too big
+            // echo "FIELD " . $field . " TYPE . $filetype TMP $filetmp_name SIZE $filesize ";
+                
+            $upload_filepath = $upload_dir . '/' . $filename;
+            $upload_filepath_backup = $upload_dir . '/' . $filename . '.backup';
+            if (is_file($upload_filepath)) {
+                @copy($upload_filepath, $upload_filepath_backup);
+                @unlink($upload_filepath);
+            }
+            
+            if (move_uploaded_file($files_uploaded['tmp_name'][$field], $upload_filepath)) {
+                if ($filesize > 200000) {
+                    $file_parts = pathinfo($upload_filepath);
+                    $upload_filepath_resized = $upload_dir . '/' . $file_parts['filename'] . '_resized.jpg';
+                    exec("convert {$upload_filepath} -quality 75 {$upload_filepath_resized}");
+                    
+                    if ($width > 800) {                        
+                        exec("convert {$upload_filepath_resized} -resize 800 {$upload_filepath_resized}");
+                    }
+
+                    if (is_file($upload_filepath_resized)) {
+                        copy($upload_filepath_resized, $upload_filepath);
+                        @unlink($upload_filepath_resized); // remove original bigger sized image
+                    }
+                }
+                                
+                $SiteDataModel = $SiteDataRepository->getByField($Site->id, $field)->getOne();
+                $SiteDataModel->field_value = $filename;
+                $SiteDataModel->saveModel();
+                @unlink($upload_filepath_backup);
+            } 
+            elseif (is_file($upload_filepath_backup)) {
+                @copy($upload_filepath_backup, $upload_filepath);                
+            }
+            
+            // pprint_r($SiteDataModel);
+        }
+        // pprint_r($files_uploaded);
+        
+    }
     
     public function site()
     {
+        if ($this->isPost()) {
+            $action = $this->_getSubResource() . 'SaveAction';
+            if (method_exists($this, $action)) {
+                $this->$action();
+            }
+            
+            // die('HERE');
+        }
+        
         // must be site admin
         $UserSites = $this->SessionManager->get('UserSites');
         if (empty($UserSites)) {
@@ -176,7 +284,7 @@ class DashboardController extends \Library\MainController {
         
         $file = WEB_PATH . "/uploads/gcimicro.zip";
         
-        $file = "microsite1.csv";
+        $file = "sites1113.csv";
         $result = \Library\Logic\Leads\UploadSite::uploadSites($ActiveAccount, $file);
         var_dump($result);
     }
