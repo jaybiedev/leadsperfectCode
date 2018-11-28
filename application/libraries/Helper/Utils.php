@@ -102,6 +102,60 @@ class Utils {
         
         return $Geolocation;
     }
+    
+    public static function uploadSiteAsset($Site, $file_uploaded_meta) {
+        
+        $File = new \Model\Storage\File();
+        $upload_dir = WEB_PATH . '/uploads/' . $Site->getAccount()->guid .'/' . $Site->guid;
+        if (!is_dir($upload_dir)) {
+            mkdir($upload_dir, 0777, true);
+        }
+        
+        $filename =  strtolower(preg_replace('~[\\\\/:*?"<>|\'\s+]~', '_', basename($file_uploaded_meta['name'])));
+        $filetype =  $file_uploaded_meta['type'];
+        $filetmp_name =  $file_uploaded_meta['tmp_name'];
+        $filesize =  $file_uploaded_meta['size'];
+        
+        $fileinfo = getimagesize($file_uploaded_meta['tmp_name']);
+        $width = $fileinfo[0];
+        $height = $fileinfo[1];
+        $mime = $fileinfo['mime'];
+        
+        $upload_filepath = $upload_dir . '/' . $filename;
+        $upload_filepath_backup = $upload_dir . '/' . $filename . '.backup';
+        if (is_file($upload_filepath)) {
+            @copy($upload_filepath, $upload_filepath_backup);
+            @unlink($upload_filepath);
+        }
+        
+        if (move_uploaded_file($file_uploaded_meta['tmp_name'], $upload_filepath)) {
+            if ($filesize > 200000) {
+                $file_parts = pathinfo($upload_filepath);
+                $upload_filepath_resized = $upload_dir . '/' . $file_parts['filename'] . '_resized.jpg';
+                exec("convert {$upload_filepath} -quality 75 {$upload_filepath_resized}");
+                
+                if ($width > 800) {
+                    @exec("convert {$upload_filepath_resized} -resize 800 {$upload_filepath_resized}");
+                }
+                
+                if (is_file($upload_filepath_resized)) {
+                    @copy($upload_filepath_resized, $upload_filepath);
+                    @unlink($upload_filepath_resized); // remove original bigger sized image
+                }
+            }
+            
+            $File->filename = $filename;
+            $File->fullpath = $upload_filepath;
+            
+            @unlink($upload_filepath_backup);
+        }
+        elseif (is_file($upload_filepath_backup)) {
+            @copy($upload_filepath_backup, $upload_filepath);
+            throw new \Exception("Unable to upload file. (" . $filename . ")");
+        }
+        
+        return $File;
+    }
 
 
 }

@@ -79,12 +79,22 @@ class DashboardController extends \Library\MainController {
         // $User = $this->UserSecurity->getUser();        
         // $Account = \Library\Logic\Account::getAccountsByUserId($User->id);
         
-        $site_guid = $this->_getResourceId();
         $UserSites = $this->SessionManager->get('UserSites');
+        $site_guid = $this->_getResourceId();
+        
         if (empty($UserSites[$site_guid])) {
             throw new \Exception("Unable to save.  Site not found.");
         }
-        $Site = $UserSites[$site_guid];
+        
+        $Site = $UserSites[$site_guid];        
+
+        if (isset($_FILES['logo']) && empty($_FILES['logo']['error']) && !empty($_FILES['logo']['tmp_name'])) {
+            $File = \Library\Helper\Utils::uploadSiteAsset($Site, $_FILES['logo']);
+            if (file_exists($File->fullpath)) {
+                $Site->logo = $File->filename;
+            }
+        }
+        
         $Site->name = $this->inputRequest('name');
         $Site->slug = $this->inputRequest('slug');
         $Site->vanity_url = $this->inputRequest('vanity_url');
@@ -110,63 +120,25 @@ class DashboardController extends \Library\MainController {
         
         // save images
         $files_uploaded = $_FILES['customization'];
-        $upload_dir = WEB_PATH . '/uploads/' . $Site->getAccount()->guid .'/' . $Site->guid;
-        if (!is_dir($upload_dir)) {
-            mkdir($upload_dir, 0777, true);
-        }
        
         foreach ($files_uploaded['error'] AS $field=>$error) {
             if ($error != 0)
                 continue;
             
-            $filename =  strtolower(preg_replace('~[\\\\/:*?"<>|\'\s+]~', '_', basename($files_uploaded['name'][$field])));
-            $filetype =  $files_uploaded['type'][$field];
-            $filetmp_name =  $files_uploaded['tmp_name'][$field];
-            $filesize =  $files_uploaded['size'][$field];
+            $file_uploaded_meta = array('name'=>$files_uploaded['name'][$field],
+                'type'=>$files_uploaded['type'][$field],
+                'tmp_name'=>$files_uploaded['tmp_name'][$field],
+                'error'=>$files_uploaded['error'][$field],
+                'size'=>$files_uploaded['size'][$field]
+            );
 
-            $fileinfo = getimagesize($files_uploaded['tmp_name'][$field]);
-            $width = $fileinfo[0];
-            $height = $fileinfo[1];
-            $mime = $fileinfo['mime'];
-            
-            // @todo: resize if too big
-            // echo "FIELD " . $field . " TYPE . $filetype TMP $filetmp_name SIZE $filesize ";
-                
-            $upload_filepath = $upload_dir . '/' . $filename;
-            $upload_filepath_backup = $upload_dir . '/' . $filename . '.backup';
-            if (is_file($upload_filepath)) {
-                @copy($upload_filepath, $upload_filepath_backup);
-                @unlink($upload_filepath);
-            }
-            
-            if (move_uploaded_file($files_uploaded['tmp_name'][$field], $upload_filepath)) {
-                if ($filesize > 200000) {
-                    $file_parts = pathinfo($upload_filepath);
-                    $upload_filepath_resized = $upload_dir . '/' . $file_parts['filename'] . '_resized.jpg';
-                    exec("convert {$upload_filepath} -quality 75 {$upload_filepath_resized}");
-                    
-                    if ($width > 800) {                        
-                        exec("convert {$upload_filepath_resized} -resize 800 {$upload_filepath_resized}");
-                    }
-
-                    if (is_file($upload_filepath_resized)) {
-                        copy($upload_filepath_resized, $upload_filepath);
-                        @unlink($upload_filepath_resized); // remove original bigger sized image
-                    }
-                }
-                                
+            $File = \Library\Helper\Utils::uploadSiteAsset($Site, $file_uploaded_meta);
+            if (file_exists($File->fullpath)) {
                 $SiteDataModel = $SiteDataRepository->getByField($Site->id, $field)->getOne();
-                $SiteDataModel->field_value = $filename;
+                $SiteDataModel->field_value = $File->filename;
                 $SiteDataModel->saveModel();
-                @unlink($upload_filepath_backup);
-            } 
-            elseif (is_file($upload_filepath_backup)) {
-                @copy($upload_filepath_backup, $upload_filepath);                
-            }
-            
-            // pprint_r($SiteDataModel);
+            }            
         }
-        // pprint_r($files_uploaded);
         
     }
     

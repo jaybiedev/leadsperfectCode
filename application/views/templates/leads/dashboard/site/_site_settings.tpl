@@ -51,7 +51,11 @@
 	            </md-input-container>
 	          	<md-input-container class="md-block">
 	              <label>Logo | $web.log </label>
-	              <input ng-model="Data.Site.logo">
+	              <input name="logo" type="file" ng-model="Data.Site.logo" style="padding-left: 60%;"
+	              		value="Data.Site.logo"/>
+	              <span>{{Data.Site.logo}}</span>
+	              
+	              <!--input ng-model="Data.Site.logo" -->
 	            </md-input-container>
 	              <br />
 	            <md-button type="submit" class="md-primary">Submit</md-button>
@@ -60,7 +64,7 @@
 	    </md-tab>
         <md-tab label="Customizations">
         <md-content class="md-padding">
-			<form name="site-basic-info-frm">        
+			<!-- form name="site-basic-info-frm" -->        
 			<md-input-container class="md-block"  ng-repeat="(key, field) in Data.SiteData">
               <label>{{ field.content_tag_name }} | $web.{{ field.field }}</label>
               <input name="customization[{{key}}]" ng-model="Data.SiteData[key].field_value" ng-if="field.content_tag_system_name=='TEXT'">
@@ -72,7 +76,7 @@
             </md-input-container>
               <br />
             <md-button type="submit"  class="md-primary">Submit</md-button>
-            </form>
+            <!-- /form -->
         </md-content>
       </md-tab>
     </md-tabs>
