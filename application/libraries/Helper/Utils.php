@@ -111,7 +111,7 @@ class Utils {
             mkdir($upload_dir, 0777, true);
         }
         
-        $filename =  strtolower(preg_replace('~[\\\\/:*?"<>|\'\s+]~', '_', basename($file_uploaded_meta['name'])));
+        $filename =  strtolower(preg_replace('~[\\\\/:*?"<>|\-\'\s+]~', '_', basename($file_uploaded_meta['name'])));
         $filetype =  $file_uploaded_meta['type'];
         $filetmp_name =  $file_uploaded_meta['tmp_name'];
         $filesize =  $file_uploaded_meta['size'];

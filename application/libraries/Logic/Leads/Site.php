@@ -111,4 +111,9 @@ class Site extends \Library\Logic\LogicAbstract
         return $slug;
         
     }
+    
+    public static function removeCachedContent($Site) {
+        $cache_file = WEB_PATH . '/uploads/' . $Site->getAccount()->guid . '/' . $Site->guid . '/index.html';
+        @unlink($cache_file);
+    }
 }

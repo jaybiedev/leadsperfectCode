@@ -108,6 +108,9 @@ class DashboardController extends \Library\MainController {
         $Site->state = $this->inputRequest('state');
         $Site->saveModel();
         
+        // remove existing cached file
+        \Library\Logic\Leads\Site::removeCachedContent($Site);
+        
         // save customizations
         $SiteDataRepository = new \Library\Logic\Leads\SiteData();
         $customization = $this->inputRequest('customization');
