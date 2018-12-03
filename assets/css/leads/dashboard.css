@@ -19,6 +19,27 @@ button.md-primary.md-button:hover {
 	color:rgb(40,53,147);
 }
 
+.btn {
+	display: inline-block;
+	margin-bottom: 0;
+	font-weight: 400;
+	text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+}
+.btn.btn-xs {
+	padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;	
+}
+.btn-danger {
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
 .dashboard-body .site-template iframe {
 	width: 1280px;
     height: 2000;

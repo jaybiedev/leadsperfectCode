@@ -33,6 +33,10 @@ class MainController extends  \CI_Controller {
     public function isPost() {
         return ($this->input->method(TRUE) == 'POST');
     }
+
+    public function isDelete() {
+        return ($this->input->method(TRUE) == 'DELETE');
+    }
     
     public function inputPost($name) {
         return $this->input->post($name);

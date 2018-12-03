@@ -62,6 +62,30 @@ app.controller('DashboardCtrl', function($scope, $http, $mdDialog, $mdSidenav, $
     	}
     }
     
+    $scope.deleteSiteInfo = function(ev) {
+    	var field = angular.element(ev.currentTarget).attr('data-field');
+    	var datasource = angular.element(ev.currentTarget).attr('data-source');
+    	var confirm = $mdDialog.confirm()
+        .title('Are you sure you want to delete ' +  field + '?')
+        .textContent('Once this value is deleted, the default value will be used.')
+        .targetEvent(ev)
+        .ok('Yes')
+        .cancel('No');
+
+		  $mdDialog.show(confirm).then(function() {
+			  $http.delete('/dashboard/site/' + $scope.Data.guid + '/settings',   
+					  { params: {field: field}}
+			    ).then(
+			        function (response) {
+			            if (response.data.success) {
+			            	$scope.Data[datasource][field] =  null;				            		
+			            }
+			        }
+			    );
+		  }, function() {
+			 // no 
+		  });
+    }
     
     $scope.menu = [
       {

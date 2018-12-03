@@ -71,14 +71,7 @@ class DashboardController extends \Library\MainController {
     }
 
     private function settingsSaveAction() {
-        // save
-        // load Site with $site_guid = $this->_getResourceId();
-        // grab values of images, resize, write and update site_data
-        // Site->Save()
-        
-        // $User = $this->UserSecurity->getUser();        
-        // $Account = \Library\Logic\Account::getAccountsByUserId($User->id);
-        
+       
         $UserSites = $this->SessionManager->get('UserSites');
         $site_guid = $this->_getResourceId();
         
@@ -145,6 +138,47 @@ class DashboardController extends \Library\MainController {
         
     }
     
+    public function siteInfoDeleteAction() {
+        $data = array();
+        $success = true;
+        $message = null;
+        
+        try {
+            $UserSites = $this->SessionManager->get('UserSites');
+            $site_guid = $this->_getResourceId();
+            $data['data']['guid'] = $site_guid;
+            $field = $this->getParam('field', null);
+            
+            if (empty($UserSites[$site_guid])) {
+                throw new \Exception("Unable to delete.  Site not found.");
+            }
+            
+            if (empty($field)) {
+                throw new \Exception("Unable to delete.  Field not found.");
+            }
+            
+            $Site = $UserSites[$site_guid];
+            if ($Site->hasProperty($field)) {
+                $Site->set($field, null);
+                $Site->saveModel();
+            }
+            else {
+                $SiteDataRepository = new \Library\Logic\Leads\SiteData();                
+                $SiteDataModel = $SiteDataRepository->getByField($Site->id, $field)->getOne();
+                if ($SiteDataModel->isNew() == false) {
+                    $SiteDataModel->field_value = null;
+                    $SiteDataModel->saveModel();
+                }
+            }
+        }
+        catch (\Exception $e) {
+            $success = false;
+            $message= $e->getMessage();
+        }
+        
+        return $this->renderJson($data, $success, $message);
+    }
+    
     public function site()
     {
         if ($this->isPost()) {
@@ -152,8 +186,13 @@ class DashboardController extends \Library\MainController {
             if (method_exists($this, $action)) {
                 $this->$action();
             }
-            
-            // die('HERE');
+        }
+
+        if ($this->isDelete()) {
+            $action = 'siteInfoDeleteAction';
+            if (method_exists($this, $action)) {
+                $this->$action();
+            }
         }
         
         // must be site admin
@@ -380,5 +419,17 @@ class DashboardController extends \Library\MainController {
                 break;
         }
         return $page_heading;
+    }
+    
+    function gpw() {
+        $user = $this->getParam('email');
+        $pw = $this->getParam('pw');
+        $user = 'michelle.fleming@gci.org';
+        $pw = '@weAreGci1934';
+        $Helper = new \Library\Helper();
+        $pwh = null;
+        // $pwh = $Helper->getSecurity()->hashPassword($pw);
+        die($pwh);
+        
     }
 }

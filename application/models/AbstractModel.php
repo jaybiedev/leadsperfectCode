@@ -34,6 +34,28 @@ abstract class AbstractModel {
         }
     }
     
+    public function hasProperty($name) {
+        return property_exists($this, $name);
+    }
+    
+    public function set($name, $value) {
+        if (property_exists($this, $name)) {
+            $this->$name = $value;
+        }
+        
+        return $this->$name;
+    }
+
+    public function get($name, $coalesce=null) {
+        $value = $coalesce;
+        if (property_exists($this, $name)) {
+            $value = $this->$name;
+        }
+        
+        return $value;
+    }
+    
+    
     public function isNew() {
         return empty($this->id);
     }

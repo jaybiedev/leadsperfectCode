@@ -53,7 +53,9 @@
 	              <label>Logo | $web.log </label>
 	              <input name="logo" type="file" ng-model="Data.Site.logo" style="padding-left: 60%;"
 	              		value="Data.Site.logo"/>
-	              <span>{{Data.Site.logo}}</span>
+	              <span>{{Data.Site.logo}}
+                	<span ng-if="Data.Site.logo" class="btn btn-secondary btn-xs btn-danger"  data-field="logo" data-value="{{Data.Site.logo}}" data-source="Site" ng-click="deleteSiteInfo($event)">delete</span>
+	              </span>
 	              
 	              <!--input ng-model="Data.Site.logo" -->
 	            </md-input-container>
@@ -72,7 +74,9 @@
               		ng-if="field.content_tag_system_name=='TEXTAREA'" rows="4">{{Data.SiteData[key].field_value}}</textarea>
               <input name="customization[{{key}}]" type="file" ng-model="Data.SiteData[key].field_value" style="padding-left: 60%;"
               		ng-if="field.content_tag_system_name=='IMAGE'" value="{{Data.SiteData[key].field_value}}"/>
-              <span ng-if="field.content_tag_system_name=='IMAGE'">{{Data.SiteData[key].field_value}}</span>
+              <span ng-if="field.content_tag_system_name=='IMAGE'">{{Data.SiteData[key].field_value}}
+              	<span ng-if="Data.SiteData[key].field_value" data-field="{{key}}" data-value="{{Data.SiteData[key].field_value}}" data-source="SiteData" class="btn btn-secondary btn-xs btn-danger" ng-click="deleteSiteInfo($event)">delete</span>
+              </span>
             </md-input-container>
               <br />
             <md-button type="submit"  class="md-primary">Submit</md-button>
