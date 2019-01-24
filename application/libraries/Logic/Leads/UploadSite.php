@@ -55,14 +55,15 @@ class UploadSite extends \Library\Logic\LogicAbstract
                 $meta['country'] = 'US';
             }
             
-            if (empty($meta['name']) && empty($meta['slug']) && empty($meta['guid']))
+            if (empty($meta['name']) && empty($meta['slug']) && empty($meta['guid'])) {
                 continue;
-            
-            if (!empty(trim($meta['guid']))) {
-                $Site = \Library\Logic\Leads\Site::getByGuid(trim($meta['guid']));
             }
-            elseif (!empty(trim($meta['slug']))) {
-                $Site = \Library\Logic\Leads\Site::getBySlug(trim($meta['slug']));
+            
+            if (isset($meta['guid']) && !empty(trim($meta['guid']))) {
+                $Site = \Library\Logic\Leads\Site::getByGuid(trim($meta['guid']), false);
+            }
+            elseif (isset($meta['slug']) && !empty(trim($meta['slug']))) {
+                $Site = \Library\Logic\Leads\Site::getBySlug(trim($meta['slug']), false);
             }
             else {
                 $Site = \Library\Logic\Leads\Site::getByName($meta['name']);                
@@ -107,7 +108,7 @@ class UploadSite extends \Library\Logic\LogicAbstract
                 ));
                 continue;
             }
-            
+
             $Site = $Site->save($meta);
 
             // create user

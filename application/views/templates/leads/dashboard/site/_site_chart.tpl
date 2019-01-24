@@ -1,4 +1,4 @@
-<h1>The inofrmaiton on these charts are currently for demonstration purposes only"</h1>
+<h1>The information on these charts are currently for demonstration purposes only"</h1>
 <h2>Know what your visitors like most</h2>
 <md-content class="md-padding" layout-xs="column" layout="row">
     <div flex flex-gt-xs="50" layout="column">

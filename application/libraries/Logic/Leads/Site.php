@@ -9,10 +9,10 @@ class Site extends \Library\Logic\LogicAbstract
     /**
      * @return object \Model\Leads\Site
      */
-    static function getBySlug($slug) {
+    static function getBySlug($slug, $is_enabled_only=true) {
         $Repository = new \Library\Repository\Leads\Site();
 
-        $DataRecord = $Repository->getBySlug($slug);
+        $DataRecord = $Repository->getBySlug($slug, $is_enabled_only);
         $ModelRecord = $DataRecord->getOne();
             
         return $ModelRecord;
@@ -21,10 +21,10 @@ class Site extends \Library\Logic\LogicAbstract
     /**
      * @return object \Model\Leads\Site
      */
-    static function getByGuid($guid) {
+    static function getByGuid($guid, $is_enabled_only) {
         $Repository = new \Library\Repository\Leads\Site();
         
-        $DataRecord = $Repository->getByGuid($guid);
+        $DataRecord = $Repository->getByGuid($guid, $is_enabled_only);
         $ModelRecord = $DataRecord->getOne();
         
         return $ModelRecord;

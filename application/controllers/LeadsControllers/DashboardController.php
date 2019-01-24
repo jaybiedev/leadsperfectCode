@@ -45,6 +45,7 @@ class DashboardController extends \Library\MainController {
          
          // redirect to site 
         $UserSites = $this->SessionManager->get('UserSites');
+
         if (empty($UserSites)) {
             $User = $this->UserSecurity->getUser();
             
@@ -70,6 +71,22 @@ class DashboardController extends \Library\MainController {
         exit;
     }
 
+    public function getSitesJSON() {
+        $data = array('Sites' => array(), 'selected'=>'');
+        $User = $this->UserSecurity->getUser();
+        
+        // get all sites administered by this account manager
+        if ($User->isAdmin()) {
+            $Sites = \Library\Logic\Leads\Site::getSitesByAccountUserId($User->id)->getArray();
+        }
+        else {
+            $Sites = \Library\Logic\Leads\Site::getSitesByUserId($User->id)->getArray();
+        }
+        $data['Sites'] = $Sites;
+
+        return $this->renderJSON($data);
+    }
+    
     private function settingsSaveAction() {
        
         $UserSites = $this->SessionManager->get('UserSites');
@@ -197,6 +214,7 @@ class DashboardController extends \Library\MainController {
         
         // must be site admin
         $UserSites = $this->SessionManager->get('UserSites');
+
         if (empty($UserSites)) {
             $User = $this->UserSecurity->getUser();
             
@@ -298,7 +316,7 @@ class DashboardController extends \Library\MainController {
         
         $file = WEB_PATH . "/uploads/gcimicro.zip";
         
-        $file = "sites1113.csv";
+        $file = "central.csv";
         $result = \Library\Logic\Leads\UploadSite::uploadSites($ActiveAccount, $file);
         var_dump($result);
     }
@@ -425,10 +443,10 @@ class DashboardController extends \Library\MainController {
         $user = $this->getParam('email');
         $pw = $this->getParam('pw');
         $user = 'michelle.fleming@gci.org';
-        $pw = '@weAreGci1934';
+        $pw = 'weAreGCI18@';
         $Helper = new \Library\Helper();
         $pwh = null;
-        // $pwh = $Helper->getSecurity()->hashPassword($pw);
+         $pwh = $Helper->getSecurity()->hashPassword($pw);
         die($pwh);
         
     }

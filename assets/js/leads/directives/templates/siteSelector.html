@@ -1,0 +1,2 @@
+<select ng-model="selectedSite" ng-options="item as item.name + ' ' + item.city for item in Data.Sites track by item.guid" ng-change="selectSite();">
+</select>

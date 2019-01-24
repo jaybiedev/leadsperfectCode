@@ -41,6 +41,7 @@
             	<i class="material-icons md-36">menu</i></md-button>
             	<span style="font-size:22px;font-weight:bold;">[[$View->page_title]]</span>
          </md-content>
+         <div style="position:absolute;right:10px;top:10px;color:#fff;">Sites <site-selector></site-selector></div>
          
       </div>
       

@@ -122,4 +122,32 @@ app
   }
 }])
 
+.directive('siteSelector', function() {
+	  return {
+	        templateUrl: Helper.BaseTemplateUrl + '/siteSelector.html',
+	        controller : function ($scope, $http) {
+	        	$scope.selectedSite = '';
+	        	$http({
+	                method: "get",
+	                url   : Helper.BaseUrl + '/dashboard/getSitesJSON'
+	            }).then(
+	                function (response) {
+	                	// var wp = window.location.href.split("/");
+	                    // var guid = wp[5];
+	                	$scope.Data.Sites = response.data.data.Sites;
+	                	$scope.selectedSite = $scope.Data.Site;
+	                }
+	            );
+	        	
+	        	$scope.selectSite = function() {
+	        		var url = Helper.BaseUrl + '/dashboard/site/' + this.selectedSite.guid + "/settings";
+	        		window.location.href = url;
+	        	}
+	        	
+	        },
+	        link: function (scope, element) {
+	        	//
+	        }
+	    };
+})
 ;

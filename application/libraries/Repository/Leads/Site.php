@@ -6,28 +6,37 @@ class Site extends \Library\Repository\RepositoryAbstract {
 
     public $model = 'Leads\Site';
 
-    public function getBySlug($slug)
+    public function getBySlug($slug, $is_enabled_only=true)
     {
         $this->sql = "SELECT site.*
                 FROM 
                   site
                 WHERE 
-                  site.enabled
+                  1=1
                   AND site.slug = '{$slug}'";
+        
+        if ($is_enabled_only) {
+            $this->sql .= " AND site.enabled ";
+        }
+
         return $this;
     }
 
     /**
      * @return object Repository
      */
-    public function getByGuid($guid)
+    public function getByGuid($guid, $is_enabled_only=true)
     {
         $this->sql = "SELECT site.*
                 FROM
                   site
                 WHERE
-                  site.enabled
+                  1=1
                   AND site.guid = '{$guid}'";
+
+        if ($is_enabled_only) {
+            $this->sql .= " AND site.enabled ";
+        }
         return $this;
     }
     
@@ -86,7 +95,7 @@ class Site extends \Library\Repository\RepositoryAbstract {
         return $this;
     }
 
-    public function getSitesByAccountUserId($user_id) {
+    public function getSitesByAccountUserId($user_id, $sortby='name', $all=false) {
         
         $this->sql = "SELECT
                         site.*
@@ -98,6 +107,12 @@ class Site extends \Library\Repository\RepositoryAbstract {
                         user_account_xref AS aux ON aux.account_id=account.id
                     WHERE
                         aux.user_id=" . intval($user_id);
+        
+        if (!$all) {
+            $this->sql .= " AND site.enabled=1";
+        }
+        $this->sql .= " ORDER BY {$sortby}";
+        
         return $this;
     }
     
