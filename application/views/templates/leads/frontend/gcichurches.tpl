@@ -31,7 +31,7 @@
     <!-- Custom styles for this template -->
     <style>
         body {
-            padding-top: 54px;
+            padding-top: 20px;
         }
         a {
         	color: #d3ab39;
@@ -74,12 +74,18 @@
 		}
         @media (min-width: 992px) {
             body {
-                padding-top: 56px;
+                padding-top: 40px;
             }
         }
         
         .pointer {
         	cursor:pointer;
+        }
+        .text-top {
+        	vertical-align:text-top;
+        }
+        .vtop {
+        	vertical-align: top;
         }
     </style>
 	<script>
@@ -130,7 +136,13 @@
 		        <img src="/uploads/9c1db3c9-67ae-4948-8ab7-e4e44634d43d/logo.png" 
 		        alt="Grace Communion International Logo"
 		        class="img-responsive"
-		        style="padding: 2rem 3rem;margin: 20px 0; background-color:#ccc;border-radius:8px;">
+		        style="padding: 2rem 3rem;margin: 20px 0 10px 0; background-color:rgb(22, 27, 45);opacity:0.95;border-radius:8px;">
+			</div>
+			<div style="margin:0 0 30px 0;">
+				<a class="vtop" href="//www.gci.org/churches">
+					<i class="material-icons pointer">view_list</i>
+					Click here for complete list of churches.
+				</a>
 			</div>
 			        	
             <div class="col-lg-6 col-md-8 col-sm-12 text-center" style="margin-left:auto;margin-right:auto;">            

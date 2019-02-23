@@ -121,12 +121,34 @@ class DashboardController extends \Library\MainController {
         // remove existing cached file
         \Library\Logic\Leads\Site::removeCachedContent($Site);
         
+        $ContentTags = \Library\Logic\Leads\ContentTag::getByTemplateId($Site->template_id)->getArray('tag');
+ 
         // save customizations
         $SiteDataRepository = new \Library\Logic\Leads\SiteData();
         $customization = $this->inputRequest('customization');
 
         foreach ($customization as $field=>$value) {
             $SiteDataModel = $SiteDataRepository->getByField($Site->id, $field)->getOne();
+            
+            if ($SiteDataModel->isNew()) {
+                if (empty($value)) {
+                    continue;
+                }
+                
+                // new tag
+                $ContentTag = $ContentTags[$field];
+                if (empty($ContentTag)) {
+                    continue;
+                }
+                
+                $SiteDataModel->field = $field;
+                $SiteDataModel->field_value = $value;
+                $SiteDataModel->site_id = $Site->id;
+                $SiteDataModel->content_tag_name = $ContentTag->name;
+                $SiteDataModel->content_tag_type_id = $ContentTag->tag_type_id;
+                $SiteDataModel->content_tag_system_name = $ContentTag->tag_system_name;
+                $SiteDataModel->enabled = 1;
+            }
             $SiteDataModel->field_value = $value;
             $SiteDataModel->saveModel();
         }
@@ -148,6 +170,27 @@ class DashboardController extends \Library\MainController {
             $File = \Library\Helper\Utils::uploadSiteAsset($Site, $file_uploaded_meta);
             if (file_exists($File->fullpath)) {
                 $SiteDataModel = $SiteDataRepository->getByField($Site->id, $field)->getOne();
+                
+                if ($SiteDataModel->isNew()) {
+                    if (empty($File->filename)) {
+                        continue;
+                    }
+                    
+                    // new tag
+                    $ContentTag = $ContentTags[$field];
+                    if (empty($ContentTag)) {
+                        continue;
+                    }
+                    
+                    $SiteDataModel->field = $field;
+                    $SiteDataModel->field_value = $File->filename;
+                    $SiteDataModel->site_id = $Site->id;
+                    $SiteDataModel->content_tag_name = $ContentTag->name;
+                    $SiteDataModel->content_tag_type_id = $ContentTag->tag_type_id;
+                    $SiteDataModel->content_tag_system_name = $ContentTag->tag_system_name;
+                    $SiteDataModel->enabled = 1;
+                }
+                
                 $SiteDataModel->field_value = $File->filename;
                 $SiteDataModel->saveModel();
             }            
@@ -442,8 +485,10 @@ class DashboardController extends \Library\MainController {
     function gpw() {
         $user = $this->getParam('email');
         $pw = $this->getParam('pw');
-        $user = 'michelle.fleming@gci.org';
-        $pw = 'weAreGCI18@';
+       // $user = 'michelle.fleming@gci.org';
+       // $pw = 'weAreGCI18@';
+       $user="jonathan.rakestraw@gci.org";
+       $pw = "changeMe18!";
         $Helper = new \Library\Helper();
         $pwh = null;
          $pwh = $Helper->getSecurity()->hashPassword($pw);

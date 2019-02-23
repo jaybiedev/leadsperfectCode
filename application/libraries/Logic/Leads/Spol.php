@@ -28,51 +28,56 @@ class Spol extends \Library\Logic\LogicAbstract
         if (!empty($this->items))
             return $this->items;
             
-            // nexttime is the filetime the cached json file should be refreshed.
-            if (time() > $this->nexttime) {
-                // $yt_channel_id = "UCgE-RnN9S3U_4zPz8VwvLmA";
-                $yt_channel_id = "UCcjkt-3-U8mogW8QtO9Yr6Q";
-                $url = "https://www.youtube.com/feeds/videos.xml?channel_id=" . $yt_channel_id;
+        // nexttime is the filetime the cached json file should be refreshed.
+        if (time() > $this->nexttime) {
+            // $yt_channel_id = "UCgE-RnN9S3U_4zPz8VwvLmA";
+            $yt_channel_id = "UCcjkt-3-U8mogW8QtO9Yr6Q";
+            $url = "https://www.youtube.com/feeds/videos.xml?channel_id=" . $yt_channel_id;
+            
+            $xml = simplexml_load_file($url);
+            
+            $namespaces = $xml->getNamespaces(true); // get namespaces
+            
+            $items = array();
+            foreach ($xml->entry as $item) {
                 
-                $xml = simplexml_load_file($url);
-                
-                $namespaces = $xml->getNamespaces(true); // get namespaces
-                
-                $items = array();
-                foreach ($xml->entry as $item) {
-                    
-                    $tmp = new \stdClass();
-                    $tmp->id = trim((string) $item->children($namespaces['yt'])->videoId);
-                    $tmp->title = trim((string) $item->title);
-                    $tmp->author  = trim((string) $item->author->name);
-                    $tmp->uri  = trim((string) $item->author->uri);
-                    $tmp->updated =  date('Y-m-d', strtotime(trim((string) $item->updated)));
-                    $tmp->link = trim((string) $item->link->attributes()->href);
-                    
-                    // now for the data in the media:group
-                    $MediaGroup = $item->children($namespaces['media'])->group;
-                    
-                    $tmp->url = trim((string) $MediaGroup->children($namespaces['media'])->content->attributes()->url);
-                    $tmp->thumbnail = trim((string) $MediaGroup->children($namespaces['media'])->thumbnail->attributes()->url);
-                    $tmp->description = trim((string) $MediaGroup->children($namespaces['media'])->description);
-                    
-                    $tmp->post_date = date('Y-m-d', strtotime(trim((string) $item->published)));
-                    
-                    $remove_url_regex = "@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@";
-                    $tmp->caption = preg_replace($remove_url_regex, "", $tmp->description);
-                    
-                    $items[] = $tmp;
+                $title = trim((string) $item->title);
+                if (false === stripos($title, 'Speaking Of Life')) {
+                    continue;
                 }
                 
-                $fp = fopen($this->file, 'w');
-                fwrite($fp, json_encode($items));
-                fclose($fp);
+                $tmp = new \stdClass();
+                $tmp->id = trim((string) $item->children($namespaces['yt'])->videoId);
+                $tmp->title = $title;
+                $tmp->author  = trim((string) $item->author->name);
+                $tmp->uri  = trim((string) $item->author->uri);
+                $tmp->updated =  date('Y-m-d', strtotime(trim((string) $item->updated)));
+                $tmp->link = trim((string) $item->link->attributes()->href);
+                
+                // now for the data in the media:group
+                $MediaGroup = $item->children($namespaces['media'])->group;
+                
+                $tmp->url = trim((string) $MediaGroup->children($namespaces['media'])->content->attributes()->url);
+                $tmp->thumbnail = trim((string) $MediaGroup->children($namespaces['media'])->thumbnail->attributes()->url);
+                $tmp->description = trim((string) $MediaGroup->children($namespaces['media'])->description);
+                
+                $tmp->post_date = date('Y-m-d', strtotime(trim((string) $item->published)));
+                
+                $remove_url_regex = "@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@";
+                $tmp->caption = preg_replace($remove_url_regex, "", $tmp->description);
+                
+                $items[] = $tmp;
             }
             
-            $str = file_get_contents($this->file);
-            $this->items = json_decode($str);
-            
-            return $this->items;
+            $fp = fopen($this->file, 'w');
+            fwrite($fp, json_encode($items));
+            fclose($fp);
+        }
+        
+        $str = file_get_contents($this->file);
+        $this->items = json_decode($str);
+        
+        return $this->items;
     }
     
     public function getFirst() {

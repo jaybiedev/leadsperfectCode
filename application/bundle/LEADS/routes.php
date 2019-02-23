@@ -16,6 +16,7 @@ function getRoutes()
     
     $route['microservices/(:any)'] = 'LeadsControllers/microservices/WebserviceController/$1';
     $route['microservices/(:any)/(:any)'] = 'LeadsControllers/microservices/WebserviceController/$1/$2';
+    $route['widgets/(:any)/(:any)'] = 'LeadsControllers/microservices/WidgetsController/$1/$2';
     
     $route['admin'] = 'leads/admin';
     $route['admin/(:any)'] = 'leads/admin';

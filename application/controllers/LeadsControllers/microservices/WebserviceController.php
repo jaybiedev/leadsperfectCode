@@ -25,9 +25,34 @@ class WebserviceController extends \Library\MainController {
         // $ActiveAccount = $this->SessionManager->get('ActiveAccount');
         $Template = \Library\Logic\Leads\Template::get($Site->template_id);
         
+        $ContentTags = \Library\Logic\Leads\ContentTag::getByTemplateId($Site->template_id);
+        
         $data['Site'] = $Site;
         $data['SiteData'] = \Library\Logic\Leads\SiteData::getAll($Site->id)->getArray('field');
          
+        while ($ContentTag = $ContentTags->getNext()) {
+            if (isset($data['SiteData'][$ContentTag->tag])) {
+                continue;
+            }
+            
+            if (property_exists($Site, $ContentTag->tag)) {
+                continue;
+            }
+            
+            $Data = new \Model\Leads\SiteData();
+            $Data->site_id = $Site->id;
+            $Data->field = $ContentTag->tag;
+            $Data->content_tag_name = $ContentTag->name;
+            $Data->content_tag_type_id = $ContentTag->tag_type_id;
+            $Data->content_tag_system_name = $ContentTag->tag_system_name;
+            
+            $data['SiteData'][$ContentTag->tag] = $Data;
+            unset($Data);
+            
+        }
+        unset($data['SiteData']['address']);
+        unset($data['SiteData']['address1']);
+        
         return $this->renderJson($data);
     }
     
