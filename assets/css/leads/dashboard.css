@@ -85,3 +85,14 @@ button.md-primary.md-button:hover {
 	float: right;
 	cursor: pointer;
 }
+
+.label-RICHTEXT {
+	margin-bottom: 30px;
+}
+
+.tox .tox-dialog-wrap .tox-dialog {
+	display:inline-block;
+}
+.tox .tox-dialog-wrap .tox-dialog .tox-dialog__body-content {
+	min-height: 200px;
+}

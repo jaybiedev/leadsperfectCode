@@ -475,6 +475,9 @@ class DashboardController extends \Library\MainController {
             case  'charts':
                 $page_heading = 'Statistics and Charts';
                 break;
+            case  'contact_form':
+                $page_heading = 'Contact Form';
+                break;
             default:
                 $page_heading = '';
                 break;
@@ -487,8 +490,8 @@ class DashboardController extends \Library\MainController {
         $pw = $this->getParam('pw');
        // $user = 'michelle.fleming@gci.org';
        // $pw = 'weAreGCI18@';
-       $user="jonathan.rakestraw@gci.org";
-       $pw = "changeMe18!";
+       $user="tosbaz@gmail.com";
+       $pw = "changeMe19!";
         $Helper = new \Library\Helper();
         $pwh = null;
          $pwh = $Helper->getSecurity()->hashPassword($pw);

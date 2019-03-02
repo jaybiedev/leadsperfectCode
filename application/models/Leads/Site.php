@@ -84,10 +84,17 @@ class Site extends \Model\AbstractModel {
     }
     
     public function getUrl() {
-        if (!empty($this->vanity_url))
-            return $this->vanity_url;
+        if (!empty($this->vanity_url)) {
+            $url = $this->vanity_url;
+            if (stripos($url, 'http') === false) {
+                $url = "//" . $url;
+            }
         
-         return WEB_URL . '/' . $this->slug;
+        }
+        else {
+            $url = WEB_URL . '/' . $this->slug;
+        }
+        return $url;
     }
     
     public function getFullAddress($mappable=false, $encode=false) {

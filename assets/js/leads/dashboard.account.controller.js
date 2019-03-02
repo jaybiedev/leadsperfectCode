@@ -35,6 +35,7 @@ app.controller('DashboardCtrl', function($scope, $http, $mdDialog, $mdSidenav) {
     };
 
     $scope.redirect = function (link) {
+    	debugger;
     	var url = Helper.BaseUrl + '/dashboard/account/' + $scope.Data.Account.guid + '/' + link;
     	if (link == 'logout')
     		url = Helper.BaseUrl + '/logout';
@@ -98,6 +99,18 @@ app.controller('DashboardCtrl', function($scope, $http, $mdDialog, $mdSidenav) {
           ]
     },
     {
+        link: 'contact_form',
+        title: 'Contact Form',
+        icon: 'table_chart',
+        submenu: [
+          {
+            link: '',
+            title: 'd1',
+            icon: 'd1'
+          }
+        ]
+      },
+      {
         link: 'charts',
         title: 'Charts',
         icon: 'show_chart',

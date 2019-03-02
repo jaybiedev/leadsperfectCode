@@ -66,12 +66,15 @@
 	    </md-tab>
         <md-tab label="Customizations">
         <md-content class="md-padding">
+        	<div style="padding: 10px; background-color:#efefef;">* Leave the field blank to use the default value.</div>
 			<!-- form name="site-basic-info-frm" -->        
 			<md-input-container class="md-block"  ng-repeat="(key, field) in Data.SiteData">
-              <label>{{ field.content_tag_name }} | $web.{{ field.field }}</label>
+              <label class="label-{{field.content_tag_system_name}}">{{ field.content_tag_name }} | $web.{{ field.field }}</label>
               <input name="customization[{{key}}]" ng-model="Data.SiteData[key].field_value" ng-if="field.content_tag_system_name=='TEXT'">
               <textarea name="customization[{{key}}]" ng-model="Data.SiteData[key].field_value" style="height: 150px;"
               		ng-if="field.content_tag_system_name=='TEXTAREA'" rows="4">{{Data.SiteData[key].field_value}}</textarea>
+              <textarea ui-tinymce="tinymceBasicOptions" name="customization[{{key}}]" ng-model="Data.SiteData[key].field_value" style="height: 150px;"
+              		ng-if="field.content_tag_system_name=='RICHTEXT'" rows="4">{{Data.SiteData[key].field_value}}</textarea>
               <input name="customization[{{key}}]" type="file" ng-model="Data.SiteData[key].field_value" style="padding-left: 60%;"
               		ng-if="field.content_tag_system_name=='IMAGE'" value="{{Data.SiteData[key].field_value}}"/>
               <span ng-if="field.content_tag_system_name=='IMAGE'">{{Data.SiteData[key].field_value}}

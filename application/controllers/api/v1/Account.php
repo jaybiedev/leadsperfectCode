@@ -93,5 +93,9 @@ class Account extends REST_Controller
         }
 
     }
+    
+    function contactform() {
+        die('HERE');
+    }
 
 }

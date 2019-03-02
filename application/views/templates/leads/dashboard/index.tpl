@@ -72,6 +72,8 @@
       <script src = "/assets/js/leads//dashboard.[[$dashboard]].directives.js"></script>
       <script src = "/assets/js/leads//dashboard.directives.js"></script>
       <script src = "/assets/js/leads//dashboard.helper.js"></script>
+      <script src = "/assets/js/components/editor/5.0/angular.module.js"></script>
+      <script src = "//cdnjs.cloudflare.com/ajax/libs/tinymce/5.0.1/tinymce.min.js"></script>
       
    </body>
 </html>

@@ -3,6 +3,7 @@ var Helper = {
 	BaseUrl : window.location.origin,
     BaseTemplateUrl : '/assets/js/leads/directives/templates',
     BaseApiUrl : window.location.origin + '/api/v1/',
+    CommonTemplateUrl : '/assets/js/angular/directives/templates',
 
     getSecurityUrl : function() {
         return this.BaseApiUrl + '/Security';

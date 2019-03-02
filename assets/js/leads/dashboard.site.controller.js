@@ -12,7 +12,48 @@ app.controller('DashboardCtrl', function($scope, $http, $mdDialog, $mdSidenav, $
     };
     
     $scope.Data.guid = angular.element(document.getElementById("dashboard-site")).attr('guid');
-    
+
+    $scope.tinymceBasicOptions = {
+		relative_urls : false,
+	    plugins: 'textcolor anchor code link hr table image',
+	    menubar: "edit view insert format tools",
+	    toolbar: "undo redo styleselect bold italic forecolor backcolor| image link  | code",
+	    //images_upload_url: 'postAcceptor.php',
+	    /* we override default upload handler to simulate successful upload*/
+	    images_upload_handler: function (blobInfo, success, failure) {
+	    	var xhr, formData;
+
+	    	xhr = new XMLHttpRequest();
+	    	xhr.withCredentials = false;
+	    	xhr.open('POST', Helper.BaseUrl + '/microservices/image');
+
+	    	xhr.onload = function() {
+	    	  var json;
+
+	    	  if (xhr.status < 200 || xhr.status >= 300) {
+	    		failure('HTTP Error: ' + xhr.status + " " + xhr.statusText);
+	    		return;
+	    	  }
+
+	    	  json = JSON.parse(xhr.responseText);
+
+	    	  if (!json || typeof json.data.location != 'string') {
+	    		failure('Invalid JSON: ' + xhr.responseText);
+	    		return;
+	    	  }
+
+	    	  success(json.data.location);
+	    	};
+
+	    	formData = new FormData();
+	    	formData.append('file', blobInfo.blob(), blobInfo.filename());
+	    	formData.append('site', $scope.Data.guid);
+
+	    	xhr.send(formData);	  
+	    },
+	    automatic_uploads: false
+	};
+
     $http({
         method: "get",
         url   : Helper.BaseUrl + '/microservices/site?guid=' + $scope.Data.guid

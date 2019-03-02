@@ -183,7 +183,6 @@
 						<br />
 					[[/if]]
 					<small class="info-address">
-						<i class="material-icons pointer" onClick="Tools.gotoMap('[[$Site->getFullAddress(1, 1)]]')"">add_location</i>
 						[[if $Site->phone|trim neq '']]							
 							<a href="tel:[[$Site->phone]]">[[$Site->phone]]</a>
 							<br />
@@ -193,6 +192,7 @@
 							<br />
 						[[/if]]
 						[[if $Site->address1|trim neq '']]
+   						   <i class="material-icons pointer" onClick="Tools.gotoMap('[[$Site->getFullAddress(1, 1)]]')" title="View Map">add_location</i>
 							[[$Site->address1]]
 							<br />
 						[[/if]]

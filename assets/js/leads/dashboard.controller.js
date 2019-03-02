@@ -7,7 +7,7 @@ app.controller('DashboardCtrl', function($scope, $http, $mdDialog, $mdSidenav) {
     		Template: {},
     		ContentTags: [],
     };
-    
+   
     $http({
         method: "post",
         url   : Helper.BaseUrl + '/dashboard/getDashboardInitAjax'
