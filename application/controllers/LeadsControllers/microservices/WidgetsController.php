@@ -20,6 +20,10 @@ class WidgetsController extends \Library\MainController {
             $guid = $this->inputRequest('guid');
             $token = $this->inputRequest('token');
             $timestamp = $this->inputRequest('timestamp');
+            
+            $localtimezone = $this->inputRequest('localtimezone');
+            $localtimestamp = $this->inputRequest('localtimestamp');
+            
             $name_from = $this->inputRequest('name');
             $email_address_from = $this->inputRequest('email');
             $subject = $this->inputRequest('subject');
@@ -27,6 +31,13 @@ class WidgetsController extends \Library\MainController {
             
             if (empty($timestamp)) {
                 $timestamp = time();
+            }
+            
+            if (empty($localtimestamp)) {
+                $localtimestamp = time();
+                $dateTime = new DateTime();
+                $dateTime->setTimeZone(new DateTimeZone(date_default_timezone_get()));
+                $localtimeszone = $dateTime->format('T');
             }
             
             if (empty($email_address_from)) {
@@ -49,12 +60,12 @@ class WidgetsController extends \Library\MainController {
                     $data['message'] = "Unable to find site requested";                
                 }
     
-                $from_email = "do-no-reply@gcichurches.com";
+                $from_email = "noreply@gcichurches.com";
                 $from_name = $Site->name . "  " . $Site->city;
                 $from_subject = "Contact Form ({$subject})";
                 $to_email = $Site->email;
                 
-                $contact_form_message = "Contact Form was submitted on " . date("Y-m-d G:ia", $timestamp);
+                $contact_form_message = "Contact Form was submitted on " . date("Y-m-d G:ia", $localtimestamp) . ' ' . $localtimezone;
                 $contact_form_message .= "\nBy: {$name_from} <{$email_address_from}>";
                 $contact_form_message .= "\nSubject: {$subject}";
                 $contact_form_message .= "\nMessage: \n {$message}";
