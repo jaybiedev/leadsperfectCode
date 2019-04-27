@@ -9,7 +9,10 @@ class Spol extends \Library\Logic\LogicAbstract
     public $nexttime = 0;
     public $items = [];
     
-    public function __construct () {
+    public $category = 'Speaking Of Life';
+    public $interval_cache = "+7 day";
+    
+    public function __construct ($category=null) {
         
         $this->file = (WEB_PATH . "/uploads");
         $this->file =  realpath($this->file);
@@ -18,15 +21,20 @@ class Spol extends \Library\Logic\LogicAbstract
             $this->file .= "/spol.json";
             if (file_exists($this->file)) {
                 $filetime = filemtime($this->file);
-                $this->nexttime = strtotime("+7 day", $filetime);
+                $this->nexttime = strtotime($this->interval_cache, $filetime);
             }
+        }
+        
+        if (!empty($category)) {
+            $this->category = $category;
         }
     }
     
     public function getAll() {
         
-        if (!empty($this->items))
+        if (!empty($this->items)) {
             return $this->items;
+        }
             
         // nexttime is the filetime the cached json file should be refreshed.
         if (time() > $this->nexttime) {
@@ -42,7 +50,7 @@ class Spol extends \Library\Logic\LogicAbstract
             foreach ($xml->entry as $item) {
                 
                 $title = trim((string) $item->title);
-                if (false === stripos($title, 'Speaking Of Life')) {
+                if (false === stripos($title, $category)) {
                     continue;
                 }
                 
@@ -81,10 +89,64 @@ class Spol extends \Library\Logic\LogicAbstract
     }
     
     public function getFirst() {
-        if (empty($this->items))
+        if (empty($this->items)) {
             $this->getAll();
+        }
             
-            return $this->items[0];
+        return $this->items[0];
+    }
+    
+    public function getNext() {
+        if (empty($this->items)) {
+            $this->getAll();
+        }
+        
+        $account_id = 2;
+        $Object = $this->items[0];
+        $Cached = \Library\Logic\Cache::getByAccountId($this->category, $account_id)->getOne();
+        
+        $save_cache = true;
+        if (!empty($Cached) && !empty($Cached->value)) {
+            $Previous = json_decode($Cached->value);
+            
+            $nexttime = date('Y-m-d', strtotime($this->interval_cache, strtotime($Cached->date)));            
+            
+            if (is_object($Previous) && $nexttime > date('Y-m-d') ) {
+                $Object = $Previous;
+                $save_cache = false;
+            }
+            else {
+                // get the next item
+                $title = explode("|", $Previous->title) ;
+                $title_parts = explode(' ', trim($title[0]));
+                $previous_sequence_number = (int)end($title_parts);
+
+                foreach ($this->items as $Item) {
+                    $title = explode("|", $Item->title) ;
+                    $title_parts = explode(' ', trim($title[0]));
+                    $item_sequence_number = (int)end($title_parts);
+                    if ($item_sequence_number > $previous_sequence_number) {
+                        $Object = $Item;
+                        break;
+                    }
+                }
+            }
+            
+        }
+        
+        if ($save_cache) {
+            \Library\Logic\Cache::update(
+                array(
+                    'id'=>$Cached->id,
+                    'identifier'=>$this->category,
+                    'date'=>date('Y-m-d'),
+                    'account_id'=>$account_id,
+                    'value'=>json_encode($Object),
+                )
+            );
+        }
+        
+        return $Object;
     }
     
     

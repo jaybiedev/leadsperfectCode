@@ -66,10 +66,10 @@ class WidgetsController extends \Library\MainController {
                 $to_email = $Site->email;
                 
                 $contact_form_message = "Contact Form was submitted on " . date("Y-m-d G:ia", $localtimestamp) . ' ' . $localtimezone;
-                $contact_form_message .= "\nBy: {$name_from} <{$email_address_from}>";
-                $contact_form_message .= "\nSubject: {$subject}";
-                $contact_form_message .= "\nMessage: \n {$message}";
-                $contact_form_message .= "\n---- end of message ---\n";
+                $contact_form_message .= "<br /><br />By: {$name_from} <{$email_address_from}>";
+                $contact_form_message .= "<br />Subject: {$subject}";
+                $contact_form_message .= "<br />Message: <br /> {$message}";
+                $contact_form_message .= "<br />---- end of message ---<br />";
                 
                 $ContactForm = new \Model\Leads\ContactForm();
                 $ContactForm->site_id = $Site->id;
@@ -82,6 +82,13 @@ class WidgetsController extends \Library\MainController {
                 $ContactForm->saveModel();
                 
                 $Email = new \Library\Logic\Email();
+                
+                $Email->setHeader('X-Sender','');
+                $Email->setHeader('X-Mailer','PHP/' . phpversion());
+                $Email->setHeader('X-Priority', 1);
+                $Email->setHeader('Return-Path', 'formsender@gcichurches.org');
+                $Email->setHeader('MIME-Version', '1.0');
+                $Email->setHeader('Content-Type', 'text/html; charset=iso-8859-1');
                 
                 $Email->setTo($to_email);
                 $Email->setReplyTo($email_address_from, $name_from);

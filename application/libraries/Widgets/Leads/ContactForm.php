@@ -79,7 +79,7 @@ class ContactForm extends \Library\Widgets\WidgetsAbstract {
                               </div>
                               <!--Grid row-->
                               <div>
-                                  <a href="#" class="btn btn-primary contact-form-simple-widget">Send</a>
+                                  <a href="javascript:void(0);" class="btn btn-primary contact-form-simple-widget">Send</a>
                               </div>
 
                           </form>
