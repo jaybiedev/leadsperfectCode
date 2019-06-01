@@ -12,6 +12,8 @@ class Spol extends \Library\Logic\LogicAbstract
     public $category = 'Speaking Of Life';
     public $interval_cache = "+7 day";
     
+    private $yt_retry = 0;
+    
     public function __construct ($category=null) {
         
         $this->file = (WEB_PATH . "/uploads");
@@ -30,27 +32,25 @@ class Spol extends \Library\Logic\LogicAbstract
         }
     }
     
-    public function getAll() {
+    public function getAll($force = false) {
         
-        if (!empty($this->items)) {
+        if (!empty($this->items) && !$force) {
             return $this->items;
         }
-            
+
         // nexttime is the filetime the cached json file should be refreshed.
-        if (time() > $this->nexttime) {
+        if ((time() > $this->nexttime) || ($force && $this->yt_retry < 2)) {
             // $yt_channel_id = "UCgE-RnN9S3U_4zPz8VwvLmA";
             $yt_channel_id = "UCcjkt-3-U8mogW8QtO9Yr6Q";
             $url = "https://www.youtube.com/feeds/videos.xml?channel_id=" . $yt_channel_id;
             
             $xml = simplexml_load_file($url);
-            
             $namespaces = $xml->getNamespaces(true); // get namespaces
-            
             $items = array();
             foreach ($xml->entry as $item) {
                 
                 $title = trim((string) $item->title);
-                if (false === stripos($title, $category)) {
+                if (false === stripos($title, $this->category)) {
                     continue;
                 }
                 
@@ -77,13 +77,22 @@ class Spol extends \Library\Logic\LogicAbstract
                 $items[] = $tmp;
             }
             
-            $fp = fopen($this->file, 'w');
-            fwrite($fp, json_encode($items));
-            fclose($fp);
+            if (!empty($items)) {
+                $fp = fopen($this->file, 'w');
+                fwrite($fp, json_encode($items));
+                fclose($fp);
+            }
         }
         
-        $str = file_get_contents($this->file);
-        $this->items = json_decode($str);
+        if (file_exists($this->file)) {
+            $str = file_get_contents($this->file);
+            $this->items = json_decode($str);
+        }
+        
+        if (empty($this->items)) {
+            $this->yt_retry++;
+            $this->getAll(true);
+        }
         
         return $this->items;
     }
@@ -100,14 +109,31 @@ class Spol extends \Library\Logic\LogicAbstract
         if (empty($this->items)) {
             $this->getAll();
         }
-        
-        $account_id = 2;
+       
+        if (empty($this->items)) {
+            return null;
+        }
+	
+    
+    	$account_id = 2;
         $Object = $this->items[0];
         $Cached = \Library\Logic\Cache::getByAccountId($this->category, $account_id)->getOne();
-        
         $save_cache = true;
         if (!empty($Cached) && !empty($Cached->value)) {
             $Previous = json_decode($Cached->value);
+            if (!is_object($Previous)) {
+                // possibly this has th videoId, grab the object from the Item
+                $previous_sequence_number = $Cached->value;
+                foreach ($this->items as $Item) {
+                    $title = explode("|", $Item->title) ;
+                    $title_parts = explode(' ', trim($title[0]));
+                    $item_sequence_number = (int)end($title_parts);
+                    if ($item_sequence_number == $previous_sequence_number || $previous_sequence_number == $Item->id) {
+                        $Previous = $Item;
+                        break;
+                    }
+                }
+            }
             
             $nexttime = date('Y-m-d', strtotime($this->interval_cache, strtotime($Cached->date)));            
             
@@ -130,9 +156,8 @@ class Spol extends \Library\Logic\LogicAbstract
                         break;
                     }
                 }
-            }
-            
-        }
+            }            
+        }        
         
         if ($save_cache) {
             \Library\Logic\Cache::update(

@@ -21,8 +21,12 @@ class SpolId extends \Library\Widgets\WidgetsAbstract {
 	    echo $this->getContent();
 	}
 	
-	public function getContent() {	  	    
-	    return $this->Spol->getNext()->id;
+	public function getContent() {	 
+	    $Spol = $this->Spol->getNext();
+	    if (empty($Spol))
+	        return null;
+	    
+        return $Spol->id;
 	}
 
 	
